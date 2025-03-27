@@ -16,13 +16,7 @@ export const routes: Routes = [
   {
     path: 'Todas-Las-Categorias',
     title: 'Category page',
-    component: CategoriasComponent, 
-    children: [
-      {
-        path: 'product/:id',
-        title: 'Detail Product Page'
-      }
-    ]
+    component: CategoriasComponent
   },
   { 
     path: 'register', 
