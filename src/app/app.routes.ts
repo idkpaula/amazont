@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 
 export const routes: Routes = [
   {
@@ -20,9 +19,8 @@ export const routes: Routes = [
     component: CategoriasComponent, 
     children: [
       {
-        path: 'detalle-producto',
-        title: 'Detail Product Page',
-        component: DetalleProductoComponent
+        path: 'product/:id',
+        title: 'Detail Product Page'
       }
     ]
   },
