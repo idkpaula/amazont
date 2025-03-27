@@ -1,0 +1,90 @@
+/* Estilo del contenedor del producto */
+.producto-item {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 245px;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.producto-item:hover{
+transform: scale(1.1);
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+background-color: #6d6d6d;
+}
+
+.producto-item:hover h3  {
+  color: #fff;
+}
+
+/* Imagen del producto */
+.producto-item img {
+  width: 100%;
+  height: 200px; /* Altura fija para la imagen */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+  border-radius: 8px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Título del producto */
+.producto-item h3 {
+  font-size: 1.2rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: bold;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+
+/* Descripción del producto */
+.producto-item .descripcion {
+  font-size: 1.2rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: bold;
+  font-size: 0.9rem;
+  color:#fc7a00;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+/* Precio del producto */
+.producto-item .precio {
+  font-size: 1.2rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: bold;
+  font-size: 1.4rem;
+  color: #fc7a00;
+  font-weight: bold;
+}
+
+/* Botón Añadir al carrito */
+.producto-item .carrito {
+  background-color: #fc7a00;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 10px;
+}
+
+/* Efecto hover para el botón */
+.producto-item .carrito:hover {
+  background-color: #e56413; /* Un tono más oscuro para el hover */
+  transform: scale(1.05);
+}
+
+.producto-item:hover .carrito {
+  background-color: #fff;
+  color: #fc7a00;
+}

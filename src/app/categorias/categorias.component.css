@@ -1,0 +1,42 @@
+hr.rounded {
+  border-top: 5px solid #3b3b3b;
+  border-radius: 5px;
+  width: 92%;
+  margin-left: 40px;
+}
+
+h1 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 35px;
+  font-weight: bold;
+  color: #020000;
+  /* Azul similar al de la imagen */
+  text-decoration: none;
+  letter-spacing: -0.025em;
+  transition: 0.3s;
+  margin-top: 45px;
+  margin-left: 40px;
+}
+
+.list {
+  gap: 55px;
+  padding: 30px;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  padding-left: 105px;
+
+  display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+
+}
+.productos-container{
+    gap: 55px;
+      padding: 10px;
+      list-style: none;
+      scroll-snap-type: x mandatory;
+      padding-left: 105px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+}

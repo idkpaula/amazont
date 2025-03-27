@@ -1,0 +1,57 @@
+/* Estilo del contenedor de la tarjeta de categoría */
+
+
+/* Estilo del contenedor de la tarjeta de categoría */
+.categoria-card {
+    position: relative;
+      width: 300px;
+      height: 200px;
+      background: linear-gradient(180deg, rgb(151, 46, 125), #ff6300);
+      ;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+
+}
+
+/* Efecto al pasar el ratón sobre la tarjeta */
+.categoria-card:hover {
+    transform:  scale(1.1);
+    transform: rotate(-5deg) scale(1.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen de la categoría */
+.categoria-card img {
+    width: 100%;
+    height: 150px; /* Ajuste de altura */
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto de la imagen al pasar el ratón */
+.categoria-card:hover img {
+    transform: scale(1.05); /* Hace que la imagen crezca ligeramente */
+}
+
+/* Nombre de la categoría */
+.categoria-card p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 15px;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
+
+/* Efecto al pasar el ratón sobre el nombre */
+.categoria-card:hover p {
+    color: black; /* Cambia el color del texto al pasar el ratón */
+}
+
+

@@ -1,0 +1,132 @@
+/* Asegura altura completa para centrar el contenido */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #1e1e2f;
+}
+
+/* Contenedor principal para centrar el formulario */
+.main-container {
+  min-height: calc(100vh - 60px); /* Ajusta '60px' si el menú tiene otra altura */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1px; /* Alternativa por si el menú ocupa más espacio */
+}
+
+/* Contenedor del formulario */
+.register-container {
+  max-width: 400px;
+  width: 90%;
+  padding: 2rem;
+  background: linear-gradient(180deg, rgb(151, 46, 125), #ff6300);
+  border-radius: 15px;
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  color: #fff;
+  text-align: center;
+  margin-top: 1rem; /* Separación adicional del menú */
+}
+
+/* Título */
+.register-container h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+/* Etiquetas */
+label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #ffffff;
+  text-align: left;
+}
+
+/* Inputs y selects */
+input,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #ff6300;
+  background: #ffffff;
+  outline: none;
+}
+
+/* Mensaje de error */
+.error {
+  color:#f7cccc;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+/* Botón con estilo uniforme */
+.register-container button {
+  width: 100%;
+  padding: 12px;
+  border: unset;
+  border-radius: 15px;
+  color: rgb(151, 46, 125);
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 16px;
+  margin-top: 1.5rem;
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.register-container button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.register-container button:hover {
+  color: #ff6300;
+}
+
+.register-container button:hover::before {
+  width: 100%;
+}
+
+/* Links opcionales */
+.register-container a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #fffacd;
+  text-decoration: underline;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.register-container a:hover {
+  color: #fff8e0;
+}

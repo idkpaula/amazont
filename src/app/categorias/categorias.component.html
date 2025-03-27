@@ -1,0 +1,20 @@
+<h1>Nuestras Categorías</h1>
+<br>
+<div class="list">
+  @for (categoria of categorias; track categoria.id) {
+  <app-categoria-item [categoria]="categoria" (click)="seleccionarCategoria(categoria.id)">
+  </app-categoria-item>
+  }
+</div>
+<hr class="rounded">
+
+@if (categoriaSeleccionada) {
+<h1>Productos</h1>
+<div class="productos-container">
+  @for (producto of productos; track producto.id) {
+  @if (producto.categoriaId === categoriaSeleccionada) {
+  <app-producto-item [producto]="producto"></app-producto-item>
+  }
+  }
+</div>
+}

@@ -1,0 +1,185 @@
+.banner {
+  background: linear-gradient(300deg, rgb(79, 12, 141), rgb(158, 56, 150), #ff6300);
+  background-size: 180% 180%;
+  height: 450px;
+  padding: 50px;
+  animation: gradient-animation 13s ease infinite;
+  border-radius: 0 0 85% 85% / 30%;
+  padding: 50px;
+  align-items: center;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.banner h1{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: -0.025em;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  transition: 0.4s;
+}
+
+.banner h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: -0.025em;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 170px 0;
+  transition: 0.4s;
+  margin-top: -300px;
+}
+
+.banner h1:hover{
+  text-shadow: 4px 4px 0 #ff8800;
+  transform: translate(-2px, -2px)
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  background-color: var(--contrast-color);
+}
+
+.container {
+  display: flex;
+  height: 50vh;
+  justify-content: space-around;
+  align-items: center;
+  color: #303030;
+  animation: expand .8s ease forwards;
+  background-color: var(--secondary-color);
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  transition: all .8s ease;
+  font-size: medium;
+}
+
+.container_content {
+  width: 70%;
+}
+
+
+
+.par {
+  height: auto;
+  overflow: hidden;
+}
+
+p {
+  line-height: 28px;
+  transform: translateY(300px);
+  animation: slideUp .8s ease-in-out forwards .8s;
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.title {
+  overflow: hidden;
+  height: auto;
+}
+
+.h1 {
+  font-size: 75px;
+  color: var(--contrast-color);
+  margin-bottom: 20px;
+  transform: translateY(100px);
+  animation: slideUp .8s ease forwards .5s;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(500px) scale(.2);
+  }
+
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(300px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes expand {
+  0% {
+    transform: translateX(1400px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+button {
+  padding: 10px 35px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 15px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  transition: all 250ms
+}
+
+button:hover {
+  color: #e8e8e8;
+}
+
+button:hover::before {
+  width: 100%;
+}

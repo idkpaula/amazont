@@ -1,0 +1,213 @@
+/* Reset general para evitar inconsistencias entre navegadores */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Estilo para el header */
+header {
+  width: 100%;
+  background-color: #333; /* Fondo oscuro */
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  height: 65px;
+}
+
+.logo {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 1.50rem;
+  font-weight: bold;
+  color: #ff6200; /* Color principal del logo */
+  text-decoration: none;
+  letter-spacing: -0.025em;
+  transition: 0.3s;
+}
+
+.logo:hover {
+  color: #ffa257; /* Color más oscuro para el hover */
+  transition: 0.4s;
+}
+
+.search-container {
+  display: flex;
+  flex-grow: 1;
+  max-width: 620px;
+  height: 50px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 15px;
+  border: none;
+  border-radius: 47px 0 0 47px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.search-button {
+  background-color: #ffffff;
+  color: white;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 0 47px 47px 0;
+  cursor: pointer;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-button .img {
+  align-items: center;
+}
+
+.options-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos para el menú de usuario */
+.user-dropdown {
+  position: absolute;
+  background-color: #ffffff;
+  color: #333;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  display: none; /* Ocultamos el menú por defecto */
+  flex-direction: column; /* Los elementos estarán en columna */
+}
+
+.user-menu-container:hover .user-dropdown {
+  display: flex; /* Mostramos el menú al pasar el mouse */
+}
+
+/* Estilo para los enlaces del menú desplegable */
+.user-dropdown a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.user-dropdown a:hover {
+  background-color: #f5f5f5; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilo para la segunda barra de navegación (navbar2) */
+.navbar2 {
+  background-color: #4e4e4e; /* Fondo gris oscuro para navbar2 */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+}
+
+.nav-buttons2 {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-button2 {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.nav-button2:hover {
+  transform: scale(1.1, 1.1);
+  transition: 0.4s;
+  color: #ff6300; /* Naranja para el hover en los botones de navbar2 */
+}
+
+.user-button2,
+.options-button2 a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+a {
+  color: inherit;
+  /* Mantiene el color original */
+  text-decoration: none;
+  /* Opcional: Elimina el subrayado */
+}
+
+/* Animación para un banner (si deseas agregar uno en el futuro) */
+.banner {
+  background: linear-gradient(300deg, rgb(79, 12, 141), rgb(158, 56, 150), #ff6300);
+  background-size: 180% 180%;
+  height: 450px;
+  margin-top: -40px;
+  animation: gradient-animation 13s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.banner h1 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: -0.025em;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 140px 0;
+}

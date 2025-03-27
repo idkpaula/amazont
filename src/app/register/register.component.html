@@ -1,0 +1,50 @@
+<div class="main-container">
+  <div class="register-container">
+      <h2>Registrarse</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <label>Nombre</label>
+        <input type="text" formControlName="name" />
+        @if (submitted && f['name'].invalid) {
+          <div class="error">Nombre requerido (mínimo 3 caracteres).</div>
+        }
+    
+        <label>Correo Electrónico</label>
+        <input type="email" formControlName="email" />
+        @if (submitted && f['email'].invalid) {
+          <div class="error">Correo válido requerido.</div>
+        }
+    
+        <label>Contraseña</label>
+        <input type="password" formControlName="password" />
+        @if (submitted && f['password'].invalid) {
+          <div class="error">Contraseña requerida (mínimo 6 caracteres).</div>
+        }
+    
+        <label>Repetir Contraseña</label>
+        <input type="password" formControlName="confirmPassword" />
+        @if (submitted && registerForm.errors?.['mismatch']) {
+          <div class="error">Las contraseñas no coinciden.</div>
+        }
+    
+        <label>Tipo de cuenta</label>
+        <select formControlName="accountType">
+          <option value="Cliente">Cliente</option>
+          <option value="Vendedor">Vendedor</option>
+        </select>
+    
+        <label>
+          <input type="checkbox" formControlName="acceptedTerms" />
+          Acepto los términos y condiciones
+        </label>
+        @if (submitted && f['acceptedTerms'].invalid) {
+          <div class="error">Debe aceptar los términos.</div>
+        }
+    
+        <button type="submit">Registrarse</button>
+      </form>
+    
+      <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+  </div>
+</div>
+    

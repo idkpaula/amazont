@@ -1,0 +1,34 @@
+<div class="checkout-container">
+  <h2>Proceso de Pago</h2>
+
+  @if (!orderConfirmed) {
+    <form [formGroup]="checkoutForm" (ngSubmit)="confirmPurchase()">
+      <label for="fullName">Nombre Completo</label>
+      <input id="fullName" formControlName="fullName" type="text">
+
+      <label for="address">Dirección</label>
+      <input id="address" formControlName="address" type="text">
+
+      <label for="city">Ciudad</label>
+      <input id="city" formControlName="city" type="text">
+
+      <label for="paymentMethod">Método de Pago</label>
+      <select id="paymentMethod" formControlName="paymentMethod">
+        <option value="creditCard">Tarjeta de Crédito</option>
+        <option value="paypal">PayPal</option>
+      </select>
+
+      @if (checkoutForm.value.paymentMethod === 'creditCard') {
+        <label for="cardNumber">Número de Tarjeta</label>
+        <input id="cardNumber" formControlName="cardNumber" type="text">
+      }
+
+      <button type="submit" [disabled]="checkoutForm.invalid && checkoutForm.value.paymentMethod !== 'paypal'">Confirmar Compra</button>
+    </form>
+  } @else {
+    <div class="confirmation">
+      <h2>¡Compra realizada con éxito!</h2>
+      <p>Gracias por su compra.</p>
+    </div>
+  }
+</div>

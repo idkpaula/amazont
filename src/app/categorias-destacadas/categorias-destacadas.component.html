@@ -1,0 +1,14 @@
+<h1>Categorias recomendadas</h1>
+
+<div class="list">
+  @for (categorias of categoriasDestacadas; track categorias.id) {
+  <div class="card">
+    <img class="card-img " [src]="categorias.img" alt="">
+    <h2 class="card__title">{{categorias.nomcategoria}}</h2>
+    <div class="card__content">
+      <h3 class="card__description">{{categorias.descripcion}}</h3>
+      <button> Leer más </button>
+    </div>
+  </div>
+  }
+</div>

@@ -1,0 +1,29 @@
+<div class="cart-container">
+  @if (cartItems.length > 0) {
+    @for (item of cartItems; track item.id) {
+      <div class="cart-item">
+        <img [src]="item.image" alt="{{ item.name }}" />
+        <div class="info">
+          <h3>{{ item.name }}</h3>
+          <p>Precio: {{ item.price | currency }}</p>
+          <label>Cantidad:
+            <input type="number" [(ngModel)]="item.quantity" (change)="updateQty(item)" min="1" />
+          </label>
+          <button (click)="removeItem(item.id)">Eliminar</button>
+        </div>
+      </div>
+    }
+
+    <div class="summary">
+      <p>Subtotal: {{ subtotal | currency }}</p>
+      <p>Envío: {{ shipping | currency }}</p>
+      <h2>Total: {{ total | currency }}</h2>
+      <a routerLink="/cart/checkout">
+        <button>Proceder al pago</button>
+      </a>
+    </div>
+  } @else {
+    <p>Tu carrito está vacío.</p>
+  }
+</div>
+<router-outlet></router-outlet>
