@@ -17,12 +17,14 @@ export const routes: Routes = [
   {
     path: 'Todas-Las-Categorias',
     title: 'Category page',
-    component: CategoriasComponent,
-  },
-  {
-    path: 'detalle-producto',
-    title: 'Detail Product Page',
-    component: DetalleProductoComponent
+    component: CategoriasComponent, 
+    children: [
+      {
+        path: 'detalle-producto',
+        title: 'Detail Product Page',
+        component: DetalleProductoComponent
+      }
+    ]
   },
   { 
     path: 'register', 
@@ -41,7 +43,8 @@ export const routes: Routes = [
     children: [
       { path: 'checkout', 
         title: 'Checkout Page',
-        component: CheckoutComponent }
+        component: CheckoutComponent 
+      }
     ] 
   },
   
