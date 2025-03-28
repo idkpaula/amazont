@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 export const routes: Routes = [
   {
@@ -16,7 +17,10 @@ export const routes: Routes = [
   {
     path: 'Todas-Las-Categorias',
     title: 'Category page',
-    component: CategoriasComponent
+    component: CategoriasComponent,
+    children: [
+      { path: 'producto/:id', title: 'Detail Product Page', component: ProductDetailComponent }
+    ]
   },
   { 
     path: 'register', 

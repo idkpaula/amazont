@@ -1,0 +1,32 @@
+@if (product) {
+    <h1>{{ product.title }}</h1>
+    <div class="gallery">
+      <img [src]="product.images[0]" class="main-image">
+      <div class="thumbnails">
+        @for (img of product.images; track img) {
+          <img [src]="img">
+        }
+      </div>
+    </div>
+    <p>{{ product.description }}</p>
+    <h2>${{ product.price }}</h2>
+  
+    @if (product.availability) {
+      <p>Disponible</p>
+    } @else {
+      <p>Agotado</p>
+    }
+  
+    <button [disabled]="!product.availability">Añadir al carrito</button>
+  
+    <h3>Opiniones</h3>
+    @for (review of product.reviews; track review.user) {
+      <div>
+        <p><strong>{{ review.user }}</strong>: {{ review.comment }} ({{ review.rating }}/5)</p>
+      </div>
+    }
+  
+    <h3>Información Adicional</h3>
+    <p>Envío en 24h. Devoluciones gratis.</p>
+}
+  

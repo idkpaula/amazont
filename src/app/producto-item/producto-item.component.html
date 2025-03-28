@@ -4,7 +4,9 @@
     <p class="descripcion">{{ producto.descripcion }}</p>
     <strong class="precio">{{ producto.precio }} €</strong>
     <br>
-    <button class="carrito">Ver más</button>
+    <button class="carrito" [routerLink]="['/Todas-Las-Categorias/producto', producto.id]">
+        Ver más
+    </button>
     <br>
     <button class="carrito">Añadir al carrito</button>
 </div>
