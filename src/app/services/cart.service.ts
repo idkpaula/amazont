@@ -33,6 +33,7 @@ export class CartService {
   ]);
   
   items$ = this.itemsSubject.asObservable();
+  private cart: any[] = [];
 
   get items(): CartItem[] {
     return this.itemsSubject.getValue();
@@ -75,5 +76,10 @@ export class CartService {
 
   get total(): number {
     return this.subtotal + this.shipping;
+  }
+  
+  addToCart(product: any): void {
+    this.cart.push(product);
+    console.log('Producto añadido al carrito', product);
   }
 }

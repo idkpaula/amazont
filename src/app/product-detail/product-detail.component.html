@@ -1,32 +1,46 @@
-@if (product) {
+<div class="main-container">
+  <div class="product-container">
+    <!-- Título del producto -->
     <h1>{{ product.title }}</h1>
+    
+    <!-- Galería de imágenes -->
     <div class="gallery">
       <img [src]="product.images[0]" class="main-image">
+      
+      <!-- Miniaturas -->
       <div class="thumbnails">
         @for (img of product.images; track img) {
           <img [src]="img">
         }
       </div>
     </div>
+    
+    <!-- Descripción del producto -->
     <p>{{ product.description }}</p>
+    
+    <!-- Precio del producto -->
     <h2>${{ product.price }}</h2>
   
+    <!-- Disponibilidad del producto -->
     @if (product.availability) {
       <p>Disponible</p>
     } @else {
       <p>Agotado</p>
     }
   
-    <button [disabled]="!product.availability">Añadir al carrito</button>
+    <!-- Botón de compra -->
+    <button [disabled]="!product.availability" (click)="addToCart()">Añadir al carrito</button>
   
+    <!-- Opiniones del producto -->
     <h3>Opiniones</h3>
     @for (review of product.reviews; track review.user) {
-      <div>
+      <div class="reviews">
         <p><strong>{{ review.user }}</strong>: {{ review.comment }} ({{ review.rating }}/5)</p>
       </div>
     }
   
+    <!-- Información adicional -->
     <h3>Información Adicional</h3>
-    <p>Envío en 24h. Devoluciones gratis.</p>
-}
-  
+    <p class="additional-info">Envío en 24h. Devoluciones gratis.</p>
+  </div>
+</div>
