@@ -1,27 +1,26 @@
-<div class="main-container">
-  <div class="login-container">
-    <h2>Iniciar Sesión</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <label>Correo Electrónico</label>
-      <input type="email" formControlName="email" />
+<div class="main-container" aria-label="Sección de inicio de sesión">
+  <div class="login-container" aria-label="Formulario de inicio de sesión">
+    <h2 aria-label="Encabezado de inicio de sesión">Iniciar Sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-label="Formulario para ingresar a la cuenta">
+      <label for="email" aria-label="Campo para ingresar el correo electrónico">Correo Electrónico</label>
+      <input id="email" type="email" formControlName="email" aria-label="Ingrese su correo electrónico" />
       @if (submitted && f['email'].invalid) {
-        <div class="error">Correo válido requerido.</div>
+        <div class="error" aria-live="polite">Correo válido requerido.</div>
       }
   
-      <label>Contraseña</label>
-      <input [type]="showPassword ? 'text' : 'password'" formControlName="password" />
-      <button type="button" (click)="togglePassword()">
+      <label for="password" aria-label="Campo para ingresar la contraseña">Contraseña</label>
+      <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" aria-label="Ingrese su contraseña" />
+      <button type="button" (click)="togglePassword()" aria-label="Botón para mostrar u ocultar la contraseña">
         {{ showPassword ? 'Ocultar' : 'Mostrar' }} Contraseña
       </button>
       @if (submitted && f['password'].invalid) {
-        <div class="error">Contraseña requerida.</div>
+        <div class="error" aria-live="polite">Contraseña requerida.</div>
       }
   
-      <button type="submit">Iniciar sesión</button>
+      <button type="submit" aria-label="Botón para iniciar sesión">Iniciar sesión</button>
     </form>
   
-    <p>¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
-    <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+    <p>¿No tienes cuenta? <a routerLink="/register" aria-label="Enlace para registrarse">Regístrate aquí</a></p>
+    <p><a href="#" aria-label="Enlace para recuperar contraseña">¿Olvidaste tu contraseña?</a></p>
   </div>
 </div>
-  
