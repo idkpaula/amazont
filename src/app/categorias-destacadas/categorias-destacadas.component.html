@@ -1,13 +1,13 @@
-<h1>Categorias recomendadas</h1>
+<h1 aria-label="Sección de categorías recomendadas">Categorías recomendadas</h1>
 
-<div class="list">
+<div class="list" aria-label="Lista de categorías destacadas">
   @for (categorias of categoriasDestacadas; track categorias.id) {
-  <div class="card">
-    <img class="card-img " [src]="categorias.img" alt="">
-    <h2 class="card__title">{{categorias.nomcategoria}}</h2>
+  <div class="card" aria-label="Categoría">
+    <img class="card-img" [src]="categorias.img" alt="{{ categorias.nomcategoria }}" aria-label="Imagen">
+    <h2 class="card__title" aria-label="Nombre de la categoría">{{ categorias.nomcategoria }}</h2>
     <div class="card__content">
-      <h3 class="card__description">{{categorias.descripcion}}</h3>
-      <button> Leer más </button>
+      <h3 class="card__description" aria-label="Descripción de la categoría">{{ categorias.descripcion }}</h3>
+      <button aria-label="Leer más"> Leer más </button>
     </div>
   </div>
   }

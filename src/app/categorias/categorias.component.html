@@ -1,19 +1,20 @@
-<h1>Nuestras Categorías</h1>
+<h1 aria-label="Sección de categorías">Nuestras Categorías</h1>
 <br>
-<div class="list">
+<div class="list" aria-label="Lista de categorías">
   @for (categoria of categorias; track categoria.id) {
-  <app-categoria-item [categoria]="categoria" (click)="seleccionarCategoria(categoria.id)">
+  <app-categoria-item [categoria]="categoria" (click)="seleccionarCategoria(categoria.id)" 
+    aria-label="Seleccionar categoría">
   </app-categoria-item>
   }
 </div>
 <hr class="rounded">
 
 @if (categoriaSeleccionada) {
-<h1>Productos</h1>
-<div class="productos-container">
+<h1 aria-label="Sección de productos">Productos</h1>
+<div class="productos-container" aria-label="Lista de productos de la categoría seleccionada">
   @for (producto of productos; track producto.id) {
   @if (producto.categoriaId === categoriaSeleccionada) {
-  <app-producto-item [producto]="producto"></app-producto-item>
+  <app-producto-item [producto]="producto" aria-label="Producto"></app-producto-item>
   }
   }
 </div>
