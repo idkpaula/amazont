@@ -1,29 +1,29 @@
-<div class="cart-container">
+<div class="cart-container" aria-label="Contenedor del carrito de compras">
   @if (cartItems.length > 0) {
     @for (item of cartItems; track item.id) {
-      <div class="cart-item">
-        <img [src]="item.image" alt="{{ item.name }}" />
+      <div class="cart-item" aria-label="Artículo en el carrito">
+        <img [src]="item.image" alt="{{ item.name }}" aria-label="Imagen" />
         <div class="info">
-          <h3>{{ item.name }}</h3>
-          <p>Precio: {{ item.price | currency }}</p>
-          <label>Cantidad:
-            <input type="number" [(ngModel)]="item.quantity" (change)="updateQty(item)" min="1" />
+          <h3 aria-label="Nombre del producto">{{ item.name }}</h3>
+          <p aria-label="Precio del producto">Precio: {{ item.price | currency }}</p>
+          <label aria-label="Cantidad">Cantidad:
+            <input type="number" [(ngModel)]="item.quantity" (change)="updateQty(item)" min="1" aria-label="Selecciona cantidad" />
           </label>
-          <button (click)="removeItem(item.id)">Eliminar</button>
+          <button (click)="removeItem(item.id)" aria-label="Eliminar producto del carrito">Eliminar</button>
         </div>
       </div>
     }
 
-    <div class="summary">
-      <p>Subtotal: {{ subtotal | currency }}</p>
-      <p>Envío: {{ shipping | currency }}</p>
-      <h2>Total: {{ total | currency }}</h2>
+    <div class="summary" aria-label="Resumen del carrito">
+      <p aria-label="Subtotal del carrito">Subtotal: {{ subtotal | currency }}</p>
+      <p aria-label="Costo de envío">Envío: {{ shipping | currency }}</p>
+      <h2 aria-label="Total a pagar">Total: {{ total | currency }}</h2>
       <a routerLink="/cart/checkout">
-        <button>Proceder al pago</button>
+        <button aria-label="Ir a la página de pago">Proceder al pago</button>
       </a>
     </div>
   } @else {
-    <p>Tu carrito está vacío.</p>
+    <p aria-label="Mensaje de carrito vacío">Tu carrito está vacío.</p>
   }
 </div>
 <router-outlet></router-outlet>
