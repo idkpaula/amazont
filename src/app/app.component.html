@@ -1,58 +1,55 @@
 <header>
-  <nav class="navbar">
-    <a href="#" class="logo">Amazon't</a>
-    <div class="search-container">
-      <input type="text" placeholder="Buscar en Amazon't..." class="search-input">
-      <button class="search-button">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/1A1A1A/search--v1.png" alt="search--v1" />
+  <nav class="navbar" aria-label="Barra de navegación principal">
+    <a href="#" class="logo" aria-label="Ir a la página principal de Amazon't">Amazon't</a>
+    <div class="search-container" aria-label="Contenedor de búsqueda">
+      <input type="text" placeholder="Buscar en Amazon't..." class="search-input" aria-label="Campo de búsqueda" />
+      <button class="search-button" aria-label="Buscar">
+        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/1A1A1A/search--v1.png" alt="Buscar" />
       </button>
     </div>
-    <div class="nav-buttons">
+    <div class="nav-buttons" aria-label="Botones de navegación">
       <div class="user-menu-container">
-        <button class="nav-button user-button" (click)="toggleUserMenu()">
-          <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/user--v1.png" alt="Usuario" />
+        <button class="nav-button user-button" (click)="toggleUserMenu()" aria-label="Menú de usuario">
+          <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/user--v1.png" alt="Menú de usuario" />
         </button>
         @if (userMenuVisible) {
-          <div class="user-dropdown">
-            <a routerLink="/login">Identifícate</a>
-            <a routerLink="/register">Regístrate</a>
+          <div class="user-dropdown" aria-label="Menú desplegable de usuario">
+            <a routerLink="/login" aria-label="Iniciar sesión">Identifícate</a>
+            <a routerLink="/register" aria-label="Registrarse">Regístrate</a>
           </div>
         }
       </div>
-      
-      <button class="nav-button options-button">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/settings--v1.png"
-          alt="settings--v1" />
+
+      <button class="nav-button options-button" aria-label="Configuración">
+        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/settings--v1.png" alt="Configuración" />
       </button>
 
-      <button class="nav-button options-button">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/language.png" alt="language" />
+      <button class="nav-button options-button" aria-label="Seleccionar idioma">
+        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/language.png" alt="Seleccionar idioma" />
       </button>
 
-      <button class="nav-button options-button" routerLink="/cart">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/shopping-cart--v1.png"
-          alt="shopping-cart--v1" />
+      <button class="nav-button options-button" routerLink="/cart" aria-label="Ir al carrito de compras">
+        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/shopping-cart--v1.png" alt="Carrito de compras" />
       </button>
-
     </div>
   </nav>
-  <nav class="navbar2">
-    <div class="nav-buttons2">
-      <button class="nav-button2 user-button2">
-        <a routerLink="Todas-Las-Categorias">Todas las categorias</a>
+  
+  <nav class="navbar2" aria-label="Barra de navegación secundaria">
+    <div class="nav-buttons2" aria-label="Botones de navegación secundaria">
+      <button class="nav-button2 user-button2" aria-label="Ir a todas las categorías">
+        <a routerLink="Todas-Las-Categorias" aria-label="Ver todas las categorías">Todas las categorías</a>
       </button>
-      <button class="nav-button2 options-button2">
+      <button class="nav-button2 options-button2" aria-label="Ver lo más vendido">
         <a>Lo más vendido</a>
       </button>
-      <button class="nav-button2 options-button2">
-        <a>Ofertas del dia</a>
+      <button class="nav-button2 options-button2" aria-label="Ver ofertas del día">
+        <a>Ofertas del día</a>
       </button>
-      <button class="nav-button2 options-button2">
+      <button class="nav-button2 options-button2" aria-label="Ver novedades">
         <a>Novedades</a>
       </button>
     </div>
   </nav>
 </header>
+
 <router-outlet />
-
-

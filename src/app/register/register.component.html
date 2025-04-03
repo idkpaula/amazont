@@ -1,50 +1,49 @@
 <div class="main-container">
-  <div class="register-container">
-      <h2>Registrarse</h2>
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        
-        <label>Nombre</label>
-        <input type="text" formControlName="name" />
-        @if (submitted && f['name'].invalid) {
-          <div class="error">Nombre requerido (mínimo 3 caracteres).</div>
-        }
-    
-        <label>Correo Electrónico</label>
-        <input type="email" formControlName="email" />
-        @if (submitted && f['email'].invalid) {
-          <div class="error">Correo válido requerido.</div>
-        }
-    
-        <label>Contraseña</label>
-        <input type="password" formControlName="password" />
-        @if (submitted && f['password'].invalid) {
-          <div class="error">Contraseña requerida (mínimo 6 caracteres).</div>
-        }
-    
-        <label>Repetir Contraseña</label>
-        <input type="password" formControlName="confirmPassword" />
-        @if (submitted && registerForm.errors?.['mismatch']) {
-          <div class="error">Las contraseñas no coinciden.</div>
-        }
-    
-        <label>Tipo de cuenta</label>
-        <select formControlName="accountType">
-          <option value="Cliente">Cliente</option>
-          <option value="Vendedor">Vendedor</option>
-        </select>
-    
-        <div class="checkbox-container">
-          <input class="checkbox" type="checkbox" formControlName="acceptedTerms" />
-          <label for="acceptedTerms">Acepto los términos y condiciones</label>
-        </div>
-        @if (submitted && f['acceptedTerms'].invalid) {
-          <div class="error">Debe aceptar los términos.</div>
-        }        
-    
-        <button type="submit">Registrarse</button>
-      </form>
-    
-      <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+  <div class="register-container" aria-label="Formulario de registro">
+    <h2 aria-label="Título de la página de registro">Registrarse</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" aria-label="Formulario para crear una nueva cuenta">
+      
+      <label for="name" aria-label="Nombre completo">Nombre</label>
+      <input id="name" type="text" formControlName="name" aria-labelledby="name" />
+      @if (submitted && f['name'].invalid) {
+        <div class="error" aria-live="assertive">Nombre requerido (mínimo 3 caracteres).</div>
+      }
+
+      <label for="email" aria-label="Correo electrónico">Correo Electrónico</label>
+      <input id="email" type="email" formControlName="email" aria-labelledby="email" />
+      @if (submitted && f['email'].invalid) {
+        <div class="error" aria-live="assertive">Correo válido requerido.</div>
+      }
+
+      <label for="password" aria-label="Contraseña">Contraseña</label>
+      <input id="password" type="password" formControlName="password" aria-labelledby="password" />
+      @if (submitted && f['password'].invalid) {
+        <div class="error" aria-live="assertive">Contraseña requerida (mínimo 6 caracteres).</div>
+      }
+
+      <label for="confirmPassword" aria-label="Repetir contraseña">Repetir Contraseña</label>
+      <input id="confirmPassword" type="password" formControlName="confirmPassword" aria-labelledby="confirmPassword" />
+      @if (submitted && registerForm.errors?.['mismatch']) {
+        <div class="error" aria-live="assertive">Las contraseñas no coinciden.</div>
+      }
+
+      <label for="accountType" aria-label="Tipo de cuenta">Tipo de cuenta</label>
+      <select id="accountType" formControlName="accountType" aria-labelledby="accountType">
+        <option value="Cliente">Cliente</option>
+        <option value="Vendedor">Vendedor</option>
+      </select>
+
+      <div class="checkbox-container">
+        <input id="acceptedTerms" class="checkbox" type="checkbox" formControlName="acceptedTerms" aria-labelledby="acceptedTerms" />
+        <label for="acceptedTerms" aria-label="Aceptar términos y condiciones">Acepto los términos y condiciones</label>
+      </div>
+      @if (submitted && f['acceptedTerms'].invalid) {
+        <div class="error" aria-live="assertive">Debe aceptar los términos.</div>
+      }
+      
+      <button type="submit" aria-label="Enviar formulario de registro">Registrarse</button>
+    </form>
+  
+    <p aria-label="Enlace para iniciar sesión">¿Ya tienes cuenta? <a routerLink="/login" aria-label="Ir al inicio de sesión">Inicia sesión aquí</a></p>
   </div>
 </div>
-    

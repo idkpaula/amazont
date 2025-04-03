@@ -1,18 +1,17 @@
-<h1>Productos recomendados</h1>
-<div class="list-wrapper">
-  <div class="list" #productList>
+<h1 aria-label="Productos recomendados">Productos recomendados</h1>
+<div class="list-wrapper" aria-label="Contenedor de productos recomendados">
+  <div class="list" #productList aria-label="Lista de productos recomendados">
     @for (productoRecomendado of productosRecomendados; track productoRecomendado.id) {
-    <div class="card">
-      <img class="card-img" [src]="productoRecomendado.img" alt="">
+    <div class="card" aria-label="Producto recomendado">
+      <img class="card-img" [src]="productoRecomendado.img" alt="{{ productoRecomendado.nomProducto }}" aria-label="Imagen del producto">
       <div class="card__content">
-        <h2 class="card__title">{{productoRecomendado.nomProducto}}</h2>
-        <h3 class="card__description">{{productoRecomendado.precio}}</h3>
-        <button> Leer más </button>
+        <h2 class="card__title" aria-label="Nombre del producto">{{ productoRecomendado.nomProducto }}</h2>
+        <h3 class="card__description" aria-label="Precio del producto">{{ productoRecomendado.precio }}</h3>
+        <button aria-label="Leer más">Leer más</button>
       </div>
     </div>
     }
   </div>
-  <button (click)="scroll('prev')" class="button button--previous" type="button">➜</button>
-  <button (click)="scroll('next')" class="button button--next" type="button">➜</button>
+  <button (click)="scroll('prev')" class="button button--previous" type="button" aria-label="Ver productos anteriores">➜</button>
+  <button (click)="scroll('next')" class="button button--next" type="button" aria-label="Ver productos siguientes">➜</button>
 </div>
-

@@ -1,12 +1,12 @@
-<div class="producto-item">
-    <img [src]="producto.imagen" [alt]="producto.nombre">
-    <h3>{{ producto.nombre }}</h3>
-    <p class="descripcion">{{ producto.descripcion }}</p>
-    <strong class="precio">{{ producto.precio }} €</strong>
+<div class="producto-item" aria-label="Producto">
+    <img [src]="producto.imagen" [alt]="producto.nombre" aria-label="Imagen del producto ">
+    <h3 aria-label="Nombre del producto">{{ producto.nombre }}</h3>
+    <p class="descripcion" aria-label="Descripción del producto">{{ producto.descripcion }}</p>
+    <strong class="precio" aria-label="Precio del producto">{{ producto.precio }} €</strong>
     <br>
-    <button class="carrito" [routerLink]="['/Todas-Las-Categorias/producto', producto.id]">
+    <button class="carrito" [routerLink]="['/Todas-Las-Categorias/producto', producto.id]" aria-label="Ver más detalles del producto">
         Ver más
     </button>
     <br>
-    <button class="carrito">Añadir al carrito</button>
+    <button class="carrito" aria-label="Añadir el producto al carrito">Añadir al carrito</button>
 </div>
