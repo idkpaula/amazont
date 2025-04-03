@@ -9,11 +9,11 @@ html, body {
 
 /* Contenedor principal para centrar el formulario */
 .main-container {
-  min-height: calc(100vh - 60px); /* Ajusta '60px' si el menú tiene otra altura */
+  min-height: calc(100vh - 60px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 1px; /* Alternativa por si el menú ocupa más espacio */
+  padding-top: 1px;
 }
 
 /* Contenedor del formulario */
@@ -26,7 +26,7 @@ html, body {
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   color: #fff;
   text-align: center;
-  margin-top: 1rem; /* Separación adicional del menú */
+  margin-top: 1rem;
 }
 
 /* Título */
@@ -129,4 +129,27 @@ select:focus {
 
 .register-container a:hover {
   color: #fff8e0;
+}
+
+/* Contenedor de checkbox alineado con el texto */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacio entre checkbox y texto */
+  margin-top: 1rem;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #ff6300;
+  cursor: pointer;
+  margin: 5mm 0 0 0; /* Mueve el checkbox 5mm hacia abajo */
+}
+
+/* Alinear la etiqueta con el checkbox */
+.checkbox-container label {
+  font-size: 1rem;
+  color: #ffffff;
+  cursor: pointer;
 }

@@ -33,13 +33,13 @@
           <option value="Vendedor">Vendedor</option>
         </select>
     
-        <label>
-          <input type="checkbox" formControlName="acceptedTerms" />
-          Acepto los términos y condiciones
-        </label>
+        <div class="checkbox-container">
+          <input class="checkbox" type="checkbox" formControlName="acceptedTerms" />
+          <label for="acceptedTerms">Acepto los términos y condiciones</label>
+        </div>
         @if (submitted && f['acceptedTerms'].invalid) {
           <div class="error">Debe aceptar los términos.</div>
-        }
+        }        
     
         <button type="submit">Registrarse</button>
       </form>
