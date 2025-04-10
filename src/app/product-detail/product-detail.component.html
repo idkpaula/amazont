@@ -1,46 +1,53 @@
-<div class="main-container" aria-label="Contenedor principal del producto">
-  <div class="product-container" aria-label="Contenedor del producto">
+<div class="main-container" aria-labelledby="product-title">
+  <div class="product-container" aria-labelledby="product-title">
+    
     <!-- Título del producto -->
-    <h1>{{ product.title }} </h1>
+    <h1 id="product-title">{{ product.title }}</h1>
     
     <!-- Galería de imágenes -->
-    <div class="gallery" aria-label="Galería de imágenes del producto">
+    <div class="gallery" aria-labelledby="gallery-title">
+      <h2 id="gallery-title" class="visually-hidden">Galería de imágenes del producto</h2>
       <img [src]="product.images[0]" class="main-image" alt="Imagen principal del producto">
       
       <!-- Miniaturas -->
       <div class="thumbnails" aria-label="Miniaturas de imágenes del producto">
         @for (img of product.images; track img) {
-          <img [src]="img" alt="Miniatura de imagen del producto">
+          <img [src]="img" alt="Miniatura de imagen del producto" aria-labelledby="thumbnail">
         }
       </div>
     </div>
     
     <!-- Descripción del producto -->
-    <p aria-label="Descripción del producto">{{ product.description }}</p>
+    <p aria-labelledby="product-description">{{ product.description }}</p>
     
     <!-- Precio del producto -->
-    <h2 aria-label="Precio del producto">${{ product.price }}</h2>
-  
+    <h2 id="product-price" aria-labelledby="product-price-label">${{ product.price }}</h2>
+    
     <!-- Disponibilidad del producto -->
     @if (product.availability) {
-      <p aria-label="Disponibilidad del producto">Disponible</p>
+      <p aria-labelledby="product-availability">Disponible</p>
     } @else {
-      <p aria-label="Disponibilidad del producto">Agotado</p>
+      <p aria-labelledby="product-availability">Agotado</p>
     }
   
     <!-- Botón de compra -->
-    <button [disabled]="!product.availability" (click)="addToCart()" aria-label="Añadir al carrito" [attr.aria-disabled]="!product.availability ? 'true' : 'false'">Añadir al carrito</button>
+    <button [disabled]="!product.availability" (click)="addToCart()" aria-label="Añadir al carrito" [attr.aria-disabled]="!product.availability ? 'true' : 'false'">
+      Añadir al carrito
+    </button>
   
     <!-- Opiniones del producto -->
-    <h3 aria-label="Opiniones sobre el producto">Opiniones</h3>
+    <h3 id="reviews-title" aria-labelledby="reviews-title">Opiniones</h3>
+    <div class="reviews" *ngIf="product.reviews.length === 0" aria-live="polite">
+      <p>No hay opiniones aún.</p>
+    </div>
     @for (review of product.reviews; track review.user) {
-      <div class="reviews" aria-label="Opinión de usuario">
+      <div class="reviews" aria-labelledby="review">
         <p><strong>{{ review.user }}</strong>: {{ review.comment }} ({{ review.rating }}/5)</p>
       </div>
     }
   
     <!-- Información adicional -->
-    <h3 aria-label="Información adicional sobre el producto">Información Adicional</h3>
-    <p class="additional-info" aria-label="Información adicional sobre el producto">Envío en 24h. Devoluciones gratis.</p>
+    <h3 id="additional-info-title" aria-labelledby="additional-info-title">Información Adicional</h3>
+    <p class="additional-info" aria-labelledby="additional-info-description">Envío en 24h. Devoluciones gratis.</p>
   </div>
 </div>

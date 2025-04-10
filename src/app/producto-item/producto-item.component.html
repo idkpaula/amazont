@@ -1,12 +1,25 @@
-<div class="producto-item" aria-label="Producto">
-    <img [src]="producto.imagen" [alt]="producto.nombre" aria-label="Imagen del producto ">
-    <h3 aria-label="Nombre del producto">{{ producto.nombre }}</h3>
-    <p class="descripcion" aria-label="Descripción del producto">{{ producto.descripcion }}</p>
-    <strong class="precio" aria-label="Precio del producto">{{ producto.precio }} €</strong>
-    <br>
+<div class="producto-item" aria-labelledby="producto-nombre">
+    <img [src]="producto.imagen" [alt]="producto.nombre" />
+    
+    <!-- Nombre del producto -->
+    <h3 id="producto-nombre">{{ producto.nombre }}</h3>
+    
+    <!-- Descripción del producto -->
+    <p class="descripcion">{{ producto.descripcion }}</p>
+    
+    <!-- Precio del producto -->
+    <strong class="precio">{{ producto.precio }} €</strong>
+    
+    <!-- Botón de ver más detalles -->
+    <br />
     <button class="carrito" [routerLink]="['/Todas-Las-Categorias/producto', producto.id]" aria-label="Ver más detalles del producto">
-        Ver más
+      Ver más
     </button>
-    <br>
-    <button class="carrito" aria-label="Añadir el producto al carrito" (click)="addToCart()">Añadir al carrito</button>
-</div>
+    
+    <!-- Botón de añadir al carrito -->
+    <br />
+    <button class="carrito" aria-label="Añadir producto al carrito" (click)="addToCart()">
+      Añadir al carrito
+    </button>
+  </div>
+  
