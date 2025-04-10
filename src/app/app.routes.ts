@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,11 @@ export const routes: Routes = [
         component: CheckoutComponent 
       }
     ] 
+  },
+  { 
+    path: 'perfil', 
+    title: 'Profile Page',
+    component: UserProfileComponent 
   },
   
 ];

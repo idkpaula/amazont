@@ -1,0 +1,110 @@
+<div class="main-container">
+    <div class="profile-container">
+      <h2>Perfil d'Usuari</h2>
+  
+      <!-- Informació bàsica del perfil -->
+      <div class="profile-section">
+        <h3>Informació de perfil</h3>
+  
+        @if (!showEditForm) {
+          <p><strong>Nom:</strong> {{ f['name'].value }}</p>
+          <p><strong>Correu:</strong> {{ f['email'].value }}</p>
+          <button (click)="showEditForm = true">Editar</button>
+        }
+  
+        @if (showEditForm) {
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="vertical-form">
+            <div class="form-group">
+              <label for="name">Nom</label>
+              <input id="name" formControlName="name" />
+              @if (f['name'].touched && f['name'].invalid) {
+                <div class="error">
+                  @if (f['name'].errors?.['required']) {
+                    <small>El nom és obligatori.</small>
+                  }
+                  @if (f['name'].errors?.['minlength']) {
+                    <small>Mínim 2 caràcters.</small>
+                  }
+                </div>
+              }
+            </div>
+  
+            <div class="form-group">
+              <label for="email">Correu electrònic</label>
+              <input id="email" formControlName="email" type="email" />
+              @if (f['email'].touched && f['email'].invalid) {
+                <div class="error">
+                  @if (f['email'].errors?.['required']) {
+                    <small>El correu és obligatori.</small>
+                  }
+                  @if (f['email'].errors?.['email']) {
+                    <small>Format de correu no vàlid.</small>
+                  }
+                </div>
+              }
+            </div>
+  
+            <div class="form-group">
+              <label for="password">Contrasenya nova</label>
+              <input id="password" formControlName="password" type="password" />
+            </div>
+  
+            <div class="form-group">
+              <label for="confirmPassword">Confirma la contrasenya</label>
+              <input id="confirmPassword" formControlName="confirmPassword" type="password" />
+              @if (profileForm.errors?.['mismatch'] && f['confirmPassword'].touched) {
+                <div class="error">
+                  <small>Les contrasenyes no coincideixen.</small>
+                </div>
+              }
+            </div>
+  
+            <div class="form-group">
+              <label for="paymentMethod">Mètode de pagament</label>
+              <input id="paymentMethod" formControlName="paymentMethod" placeholder="Ex: Visa ****1234" />
+            </div>
+  
+            <div class="form-actions">
+              <button type="submit">Desar</button>
+              <button type="button" (click)="showEditForm = false">Cancel·lar</button>
+            </div>
+          </form>
+        }
+      </div>
+  
+      <hr />
+  
+      <!-- Historial de comandes -->
+      <div class="profile-section">
+        <h3>Historial de comandes</h3>
+        <ul>
+          @for (order of orderHistory; track order.id) {
+            <li>
+              <strong>Comanda #{{ order.id }}</strong> - {{ order.date }} - {{ order.total }} €
+            </li>
+          }
+        </ul>
+      </div>
+  
+      <hr />
+  
+      <!-- Mètodes de pagament -->
+      <div class="profile-section">
+        <h3>Mètodes de pagament guardats</h3>
+        <ul>
+          @for (method of paymentMethods; track method) {
+            <li>{{ method }}</li>
+          }
+        </ul>
+      </div>
+  
+      <hr />
+  
+      <!-- Configuració del compte -->
+      <div class="profile-section">
+        <h3>Configuració de compte i seguretat</h3>
+        <p>Canvia la teva contrasenya, tanca sessió a altres dispositius, etc.</p>
+      </div>
+    </div>
+  </div>
+  
