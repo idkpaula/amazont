@@ -1,34 +1,41 @@
-<div class="checkout-container" aria-label="Proceso de pago">
-  <h2 aria-label="Encabezado de proceso de pago">Proceso de Pago</h2>
+<div class="checkout-container" aria-labelledby="proceso-pago-heading">
+  <h2 id="proceso-pago-heading" aria-label="Encabezado de proceso de pago">Proceso de Pago</h2>
 
   @if (!orderConfirmed) {
-    <form [formGroup]="checkoutForm" (ngSubmit)="confirmPurchase()" aria-label="Formulario de pago">
-      <label for="fullName" aria-label="Campo para ingresar el nombre completo">Nombre Completo</label>
-      <input id="fullName" formControlName="fullName" type="text" aria-label="Ingrese su nombre completo">
+    <form [formGroup]="checkoutForm" (ngSubmit)="confirmPurchase()" aria-labelledby="formulario-pago-heading">
+      <h3 id="formulario-pago-heading" class="visually-hidden">Formulario de Pago</h3>
 
-      <label for="address" aria-label="Campo para ingresar la dirección">Dirección</label>
-      <input id="address" formControlName="address" type="text" aria-label="Ingrese su dirección completa">
+      <label for="fullName" aria-labelledby="fullName-label">Nombre Completo</label>
+      <input id="fullName" formControlName="fullName" type="text" aria-describedby="fullName-description" required />
+      <p id="fullName-description" class="visually-hidden">Ingrese su nombre completo</p>
 
-      <label for="city" aria-label="Campo para ingresar la ciudad">Ciudad</label>
-      <input id="city" formControlName="city" type="text" aria-label="Ingrese su ciudad">
+      <label for="address" aria-labelledby="address-label">Dirección</label>
+      <input id="address" formControlName="address" type="text" aria-describedby="address-description" required />
+      <p id="address-description" class="visually-hidden">Ingrese su dirección completa</p>
 
-      <label for="paymentMethod" aria-label="Seleccione un método de pago">Método de Pago</label>
-      <select id="paymentMethod" formControlName="paymentMethod" aria-label="Seleccione su método de pago">
+      <label for="city" aria-labelledby="city-label">Ciudad</label>
+      <input id="city" formControlName="city" type="text" aria-describedby="city-description" required />
+      <p id="city-description" class="visually-hidden">Ingrese su ciudad</p>
+
+      <label for="paymentMethod" aria-labelledby="paymentMethod-label">Método de Pago</label>
+      <select id="paymentMethod" formControlName="paymentMethod" aria-describedby="paymentMethod-description" required>
         <option value="creditCard" aria-label="Opción: Tarjeta de Crédito">Tarjeta de Crédito</option>
         <option value="paypal" aria-label="Opción: PayPal">PayPal</option>
       </select>
+      <p id="paymentMethod-description" class="visually-hidden">Seleccione su método de pago</p>
 
       @if (checkoutForm.value.paymentMethod === 'creditCard') {
-        <label for="cardNumber" aria-label="Campo para ingresar el número de tarjeta">Número de Tarjeta</label>
-        <input id="cardNumber" formControlName="cardNumber" type="text" aria-label="Ingrese su número de tarjeta de crédito">
+        <label for="cardNumber" aria-labelledby="cardNumber-label">Número de Tarjeta</label>
+        <input id="cardNumber" formControlName="cardNumber" type="text" aria-describedby="cardNumber-description" required />
+        <p id="cardNumber-description" class="visually-hidden">Ingrese su número de tarjeta de crédito</p>
       }
 
-      <button type="submit" [disabled]="checkoutForm.invalid && checkoutForm.value.paymentMethod !== 'paypal'" aria-label="Botón para confirmar compra">Confirmar Compra</button>
+      <button type="submit" [disabled]="checkoutForm.invalid && checkoutForm.value.paymentMethod !== 'paypal'" aria-label="Confirmar compra">Confirmar Compra</button>
     </form>
   } @else {
-    <div class="confirmation" aria-label="Mensaje de compra exitosa">
-      <h2 aria-label="Encabezado de confirmación de compra">¡Compra realizada con éxito!</h2>
-      <p aria-label="Mensaje de agradecimiento">Gracias por su compra.</p>
+    <div class="confirmation" aria-labelledby="confirmation-heading">
+      <h2 id="confirmation-heading">¡Compra realizada con éxito!</h2>
+      <p>Gracias por su compra.</p>
     </div>
   }
 </div>
