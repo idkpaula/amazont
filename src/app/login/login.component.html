@@ -1,23 +1,36 @@
-<div class="main-container" aria-label="Sección de inicio de sesión">
-  <div class="login-container" aria-label="Formulario de inicio de sesión">
-    <h2 aria-label="Encabezado de inicio de sesión">Iniciar Sesión</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-label="Formulario para ingresar a la cuenta">
-      <label for="email" aria-label="Campo para ingresar el correo electrónico">Correo Electrónico</label>
-      <input id="email" type="email" formControlName="email" aria-label="Ingrese su correo electrónico" />
+<div class="main-container" aria-labelledby="inicio-sesion-titulo">
+  <div class="login-container" aria-labelledby="formulario-inicio-sesion">
+    <h2 id="inicio-sesion-titulo" aria-label="Encabezado de inicio de sesión">Iniciar Sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-labelledby="formulario-inicio-sesion">
+      <h3 id="formulario-inicio-sesion" class="visually-hidden">Formulario de inicio de sesión</h3>
+
+      <!-- Campo de correo electrónico -->
+      <label for="email" id="email-label">Correo Electrónico</label>
+      <input id="email" type="email" formControlName="email" aria-labelledby="email-label" />
       @if (submitted && f['email'].invalid) {
-        <div class="error" aria-live="polite">Correo válido requerido.</div>
+        <div class="error" role="alert" aria-live="assertive" aria-labelledby="email-error">
+          <span id="email-error">Correo válido requerido.</span>
+        </div>
       }
-  
-      <label for="password" aria-label="Campo para ingresar la contraseña">Contraseña</label>
-      <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" aria-label="Ingrese su contraseña" />
-      <button type="button" (click)="togglePassword()" aria-label="Botón para mostrar u ocultar la contraseña">
+
+      <!-- Campo de contraseña -->
+      <label for="password" id="password-label">Contraseña</label>
+      <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" aria-labelledby="password-label" />
+      
+      <!-- Botón para mostrar u ocultar contraseña -->
+      <button type="button" (click)="togglePassword()" aria-describedby="password-label">
         {{ showPassword ? 'Ocultar' : 'Mostrar' }} Contraseña
       </button>
       @if (submitted && f['password'].invalid) {
-        <div class="error" aria-live="polite">Contraseña requerida.</div>
+        <div class="error" role="alert" aria-live="assertive" aria-labelledby="password-error">
+          <span id="password-error">Contraseña requerida.</span>
+        </div>
       }
-  
-      <button type="submit" aria-label="Botón para iniciar sesión">Iniciar sesión</button>
+
+      <!-- Botón de inicio de sesión -->
+      <button type="submit" aria-labelledby="submit-button">
+        Iniciar sesión
+      </button>
     </form>
   
     <p>¿No tienes cuenta? <a routerLink="/register" aria-label="Enlace para registrarse">Regístrate aquí</a></p>
