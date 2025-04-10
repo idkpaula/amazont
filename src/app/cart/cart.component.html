@@ -1,29 +1,46 @@
 <div class="cart-container" aria-label="Contenedor del carrito de compras">
+  <!-- Comprobamos si hay artículos en el carrito -->
   @if (cartItems.length > 0) {
+    <!-- Iteramos sobre los artículos del carrito -->
     @for (item of cartItems; track item.id) {
-      <div class="cart-item" aria-label="Artículo en el carrito">
-        <img [src]="item.image" alt="{{ item.name }}" aria-label="Imagen" />
+      <div class="cart-item" aria-labelledby="cart-item">
+        <img [src]="item.image" alt="Nombre del producto" aria-hidden="true" />
+        
         <div class="info">
-          <h3 aria-label="Nombre del producto">{{ item.name }}</h3>
-          <p aria-label="Precio del producto">Precio: {{ item.price | currency }}</p>
-          <label aria-label="Cantidad">Cantidad:
-            <input type="number" [(ngModel)]="item.quantity" (change)="updateQty(item)" min="1" aria-label="Selecciona cantidad" />
+          <!-- Nombre del producto -->
+          <h3 id="cart-item name">{{ item.name }}</h3>
+          
+          <!-- Precio del producto -->
+          <p aria-labelledby="cart-item price">Precio: {{ item.price | currency }}</p>
+          
+          <!-- Selector de cantidad -->
+          <span id="quantity-description" class="visually-hidden">Selecciona la cantidad del producto</span>
+          <br>
+          <label for="quantity" aria-label="Cantidad">Cantidad:
+            <input id="quantity" type="number" [(ngModel)]="item.quantity" (change)="updateQty(item)" min="1" aria-describedby="quantity-description" />
           </label>
-          <button (click)="removeItem(item.id)" aria-label="Eliminar producto del carrito">Eliminar</button>
+
+          <!-- Botón para eliminar el artículo -->
+          <button (click)="removeItem(item.id)" aria-label="Eliminar del carrito">Eliminar</button>
         </div>
       </div>
     }
 
+    <!-- Resumen del carrito -->
     <div class="summary" aria-label="Resumen del carrito">
-      <p aria-label="Subtotal del carrito">Subtotal: {{ subtotal | currency }}</p>
-      <p aria-label="Costo de envío">Envío: {{ shipping | currency }}</p>
-      <h2 aria-label="Total a pagar">Total: {{ total | currency }}</h2>
+      <p aria-labelledby="cart-subtotal">Subtotal: {{ subtotal | currency }}</p>
+      <p aria-labelledby="cart-shipping">Envío: {{ shipping | currency }}</p>
+      <h2 id="cart-total" aria-labelledby="cart-total">Total: {{ total | currency }}</h2>
+
+      <!-- Enlace al pago -->
       <a routerLink="/cart/checkout">
-        <button aria-label="Ir a la página de pago">Proceder al pago</button>
+        <button aria-labelledby="checkout-button">Proceder al pago</button>
       </a>
     </div>
   } @else {
-    <p aria-label="Mensaje de carrito vacío">Tu carrito está vacío.</p>
+    <!-- Mensaje cuando el carrito está vacío -->
+    <p aria-labelledby="empty-cart-message">Tu carrito está vacío.</p>
   }
 </div>
+
 <router-outlet></router-outlet>
