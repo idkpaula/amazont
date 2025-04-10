@@ -1,24 +1,74 @@
-<div class="banner">
-  <h1 class="titulo" aria-label="Amazon't & Valentine's">Amazon't & Valentine's</h1>
-  <h3 aria-label="Razones para elegirnos">Reasons for Choosing US</h3>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Metaetiquetas para el manejo de caracteres y la compatibilidad con dispositivos móviles -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Título de la página que aparecerá en la pestaña del navegador -->
+  <title>Amazon't & Valentine's</title>
+</head>
 
-<div class='container'>
-  <div class="container_content">
-      <div class="container_content_inner">
-          <div class="title">
-              <h1 class="h1" aria-label="Título Amazon't">Amazon't</h1>
-          </div>
-          <div class="par">
-              <p aria-label="Descripción">
-                  Cupiditate alias odio omnis minima veritatis saepe porro, repellendus natus vitae, sequi exercitationem ipsam, 
-                  qui possimus sit eveniet laborum sapiente quisquam quae neque velit?
-              </p>
-          </div>
-          <div class="btns">
-              <button class='btns_more' aria-label="Ver más información"> Ver más </button>
-          </div>
+<body>
+
+  <!-- Encabezado principal con barra de navegación -->
+  <header>
+    <nav aria-label="Navegación principal">
+      <!-- Menú de navegación podría ir aquí pero está puesto en el componente app -->
+    </nav>
+  </header>
+
+  <!-- Contenido principal de la página -->
+  <main>
+    <!-- Sección del banner principal, incluye título y subtítulo -->
+    <section aria-labelledby="main-banner-title">
+      <div class="banner">
+        <!-- Título principal de la página -->
+        <h1 id="main-banner-title" class="titulo">Amazon't & Valentine's</h1>
+        <!-- Subtítulo que proporciona más contexto al visitante -->
+        <h2 aria-labelledby="main-reasons-title">
+          <span id="main-reasons-title">Reasons for Choosing US</span>
+        </h2>
       </div>
-  </div>
-  <div class="overlay" aria-hidden="true"></div>
-</div>
+    </section>
+
+    <!-- Sección contenedora con información adicional sobre los servicios o productos -->
+    <section class='container' role="region" aria-labelledby="section-title">
+      <div class="container_content">
+        <!-- Contenido dentro del contenedor principal -->
+        <div class="container_content_inner">
+          <!-- Artículo con información sobre uno de los temas clave -->
+          <article>
+            <header>
+              <!-- Título de la sección dentro del artículo -->
+              <h2 id="section-title" class="h1">Amazon't</h2>
+            </header>
+
+            <!-- Descripción del tema tratado en el artículo -->
+            <p id="desc-text">
+              Cupiditate alias odio omnis minima veritatis saepe porro, repellendus natus vitae, sequi exercitationem ipsam, 
+              qui possimus sit eveniet laborum sapiente quisquam quae neque velit?
+            </p>
+
+            <!-- Botones de interacción para el usuario -->
+            <div class="btns">
+              <button class='btns_more' 
+                      aria-label="Ver más información sobre Amazon't"
+                      tabindex="0"
+                      role="button">
+                Ver más
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Elemento superpuesto (posiblemente para mostrar información adicional o una capa modal) -->
+      <div class="overlay" aria-hidden="true"></div>
+    </section>
+
+    <!-- Región para notificaciones dinámicas (por ejemplo, mensajes de actualización) -->
+    <div aria-live="polite" id="live-region" class="visually-hidden"></div>
+  </main>
+
+</body>
+</html>

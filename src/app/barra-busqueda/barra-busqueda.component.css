@@ -183,3 +183,39 @@ button:hover {
 button:hover::before {
   width: 100%;
 }
+
+:root {
+  --bg-color: #fff;
+  --text-color: #000;
+  --highlight-color: #ff4081;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --highlight-color: #ff4081;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+}
+
+.high-contrast {
+  --bg-color: #000;
+  --text-color: #fff;
+  --highlight-color: #ffff00;
+}
+
+.btns_more:focus {
+  outline: 2px solid var(--highlight-color);
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
