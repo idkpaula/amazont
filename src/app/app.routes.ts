@@ -8,6 +8,7 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ProductAdminComponent } from './product-admin/product-admin.component';
 
 export const routes: Routes = [
   {
@@ -49,5 +50,9 @@ export const routes: Routes = [
     title: 'Profile Page',
     component: UserProfileComponent 
   },
-  
+  {
+    path: 'admin',
+    title: 'Admin page',
+    component: ProductAdminComponent
+  }  
 ];

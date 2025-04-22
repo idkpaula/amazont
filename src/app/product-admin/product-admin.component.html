@@ -1,0 +1,112 @@
+<header class="p-4 border-b bg-gradient-to-r from-purple-500 to-orange-500">
+  <h1 class="text-xl font-bold mb-4 text-white" id="page-title">Administrar Productos</h1>
+</header>
+
+<main role="main" aria-labelledby="page-title" class="p-4">
+  <section aria-label="Formulario para añadir o editar productos" class="form-container">
+    <form (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input 
+          id="title"
+          [(ngModel)]="form.title"
+          name="title"
+          placeholder="Título"
+          required
+          aria-required="true"
+          class="input-field"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <input 
+          id="description"
+          [(ngModel)]="form.description"
+          name="description"
+          placeholder="Descripción"
+          required
+          aria-required="true"
+          class="input-field"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="price">Precio</label>
+        <input 
+          id="price"
+          type="number"
+          [(ngModel)]="form.price"
+          name="price"
+          placeholder="Precio"
+          required
+          aria-required="true"
+          class="input-field"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="image">URL de Imagen</label>
+        <input 
+          id="image"
+          [(ngModel)]="form.image"
+          name="image"
+          placeholder="URL de Imagen"
+          aria-describedby="imageDesc"
+          class="input-field"
+        />
+        <small id="imageDesc" class="text-white">Debe ser una URL válida con formato de imagen.</small>
+      </div>
+
+      <button 
+        type="submit"
+        aria-label="Editar producto"
+        class="submit-button"
+      >
+        {{ editing ? 'Actualizar' : 'Añadir' }} producto
+      </button>
+    </form>
+  </section>
+
+  <hr class="my-6" />
+
+  <section aria-labelledby="mis-productos" class="products-section">
+    <h2 id="mis-productos" class="text-lg font-semibold mb-2 text-white">Mis Productos</h2>
+
+    <div *ngIf="products.length > 0; else noProducts">
+      @for (product of products; track product.id) {
+        <article class="product-item" aria-labelledby="product-title">
+          <h3 id="product-title" class="text-md font-bold">{{ product.title }}</h3>
+          <img [src]="product.image" alt="Imagen del producto" width="100" />
+          <p>{{ product.description }}</p>
+          <p><strong>Precio: ${{ product.price }}</strong></p>
+          <p>Ventas: {{ product.sales }}</p>
+          <p>Ingresos generados: <strong>${{ product.price * product.sales }}</strong></p>
+          <button 
+            (click)="edit(product)" 
+            aria-label="Editar producto"
+            aria-expanded="false"
+            class="edit-button"
+          >
+            Editar
+          </button>
+        </article>
+      }
+
+      <hr class="my-6" />
+
+      <!-- Estadísticas globales -->
+      <section aria-label="Resumen de ventas">
+        <div class="summary-container">
+          <h3 class="text-md font-bold mb-2">Resumen General</h3>
+          <p>Total de ventas: <strong>{{ totalVentas }}</strong></p>
+          <p>Ingresos totales: <strong>${{ totalIngresos }}</strong></p>
+        </div>
+      </section>
+    </div>
+
+    <ng-template #noProducts>
+      <p class="text-white">No tienes productos aún.</p>
+    </ng-template>
+  </section>
+</main>

@@ -1,0 +1,148 @@
+/* Estilo global para el formulario y productos */
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.1);  /* Fondo semitransparente */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenedor principal */
+  header {
+    background: linear-gradient(to right, #a64ca6, #ff6300); /* Degradado de morado a naranja */
+    padding: 1rem;
+  }
+  
+  header h1 {
+    color: #fff;
+  }
+  
+  main {
+    background-color: #2c2c3e; /* Fondo oscuro para todo el main */
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .label-text {
+    display: block;
+    font-size: 1rem;
+    color: #f5f5f5;  /* Color gris claro */
+    margin-bottom: 0.5rem;
+  }
+  
+  .input-field {
+    width: 96%;  /* Establecido el ancho a un porcentaje (más estrecho) */
+    padding: 0.8rem;  /* Reducido el padding */
+    border-radius: 8px;  /* Bordes más redondeados */
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.15); /* Fondo oscuro con más transparencia */
+    color: #f5f5f5;  /* Texto claro para mejor visibilidad */
+    font-size: 0.875rem;  /* Tamaño de fuente más pequeño */
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;  /* Espaciado adicional entre los campos */
+  }
+  
+  .input-field:focus {
+    border-color: #ff6300;
+    background: #fff;
+    color: #333; /* Color oscuro al enfocar el campo */
+    outline: none;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #e85c50;
+  }
+  
+  .products-section {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+  }
+  
+  .product-item {
+    background-color: rgba(255, 255, 255, 0.15); /* Fondo ligeramente oscuro */
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+  }
+  
+  .product-item h3 {
+    font-size: 1.2rem;
+    color: #fff;
+  }
+  
+  .product-item p {
+    color: #fff;
+    margin: 0.5rem 0;
+  }
+  
+  .product-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  
+  .edit-button {
+    padding: 0.5rem 1rem;
+    background-color: #6f2dbd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-button:hover {
+    background-color: #a64ca6;
+  }
+  
+  .summary-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: #fff;
+  }
+  
+  .summary-container h3 {
+    font-size: 1.25rem;
+  }
+  
+  .summary-container p {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+  
+  hr {
+    border-top: 1px solid #fff;
+    margin: 2rem 0;
+  }
+  
+  /* Estilo de textos */
+  .text-white {
+    color: #fff;
+  }
+  

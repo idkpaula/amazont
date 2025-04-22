@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Product } from '../../interfaces/product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,32 @@ export class ProductService {
   getProductById(id: number): Observable<any> {
     const product = this.products.find(p => p.id === id);
     return of(product);
+  }
+
+  private productos = new BehaviorSubject<Product[]>([
+    {
+      id: 1,
+      title: 'Producto de ejemplo',
+      description: 'Descripción de ejemplo',
+      price: 100,
+      image: 'https://via.placeholder.com/150',
+      sales: 10,
+    },
+  ]);
+
+  getProducts(): Observable<Product[]> {
+    return this.productos.asObservable();
+  }
+
+  addProduct(product: Product) {
+    const updated = [...this.productos.getValue(), product];
+    this.productos.next(updated);
+  }
+
+  updateProduct(product: Product) {
+    const updated = this.productos.getValue().map((p) =>
+      p.id === product.id ? product : p
+    );
+    this.productos.next(updated);
   }
 }
