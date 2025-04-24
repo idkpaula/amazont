@@ -1,49 +1,68 @@
+<!-- Contenedor principal del formulario de registro -->
 <div class="main-container">
+  <!-- Contenedor específico del formulario de registro -->
   <div class="register-container" aria-label="Formulario de registro">
+    
+    <!-- Título del formulario -->
     <h2 aria-label="Título de la página de registro">Registrarse</h2>
+    
+    <!-- Formulario reactivo vinculado a 'registerForm' -->
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" aria-label="Formulario para crear una nueva cuenta">
       
+      <!-- Campo de entrada para el nombre -->
       <label for="name" aria-label="Nombre completo">Nombre</label>
       <input id="name" type="text" formControlName="name" aria-labelledby="name" />
+      <!-- Validación para el campo de nombre si está vacío o es muy corto -->
       @if (submitted && f['name'].invalid) {
         <div class="error" aria-live="assertive">Nombre requerido (mínimo 3 caracteres).</div>
       }
 
+      <!-- Campo de entrada para el correo electrónico -->
       <label for="email" aria-label="Correo electrónico">Correo Electrónico</label>
       <input id="email" type="email" formControlName="email" aria-labelledby="email" />
+      <!-- Validación para formato de correo electrónico -->
       @if (submitted && f['email'].invalid) {
         <div class="error" aria-live="assertive">Correo válido requerido.</div>
       }
 
+      <!-- Campo de entrada para la contraseña -->
       <label for="password" aria-label="Contraseña">Contraseña</label>
       <input id="password" type="password" formControlName="password" aria-labelledby="password" />
+      <!-- Validación para longitud mínima de la contraseña -->
       @if (submitted && f['password'].invalid) {
         <div class="error" aria-live="assertive">Contraseña requerida (mínimo 6 caracteres).</div>
       }
 
+      <!-- Campo para confirmar la contraseña -->
       <label for="confirmPassword" aria-label="Repetir contraseña">Repetir Contraseña</label>
       <input id="confirmPassword" type="password" formControlName="confirmPassword" aria-labelledby="confirmPassword" />
+      <!-- Validación si las contraseñas no coinciden -->
       @if (submitted && registerForm.errors?.['mismatch']) {
         <div class="error" aria-live="assertive">Las contraseñas no coinciden.</div>
       }
 
+      <!-- Selección del tipo de cuenta -->
       <label for="accountType" aria-label="Tipo de cuenta">Tipo de cuenta</label>
       <select id="accountType" formControlName="accountType" aria-labelledby="accountType">
         <option value="Cliente">Cliente</option>
         <option value="Vendedor">Vendedor</option>
       </select>
 
+      <!-- Casilla para aceptar los términos y condiciones -->
       <div class="checkbox-container">
         <input id="acceptedTerms" class="checkbox" type="checkbox" formControlName="acceptedTerms" aria-labelledby="acceptedTerms" />
         <label for="acceptedTerms" aria-label="Aceptar términos y condiciones">Acepto los términos y condiciones</label>
       </div>
+      <!-- Validación si no se aceptan los términos -->
       @if (submitted && f['acceptedTerms'].invalid) {
         <div class="error" aria-live="assertive">Debe aceptar los términos.</div>
       }
       
+      <!-- Botón para enviar el formulario -->
       <button type="submit" aria-label="Enviar formulario de registro">Registrarse</button>
     </form>
-  
+
+    <!-- Enlace a la página de inicio de sesión -->
     <p aria-label="Enlace para iniciar sesión">¿Ya tienes cuenta? <a routerLink="/login" aria-label="Ir al inicio de sesión">Inicia sesión aquí</a></p>
   </div>
 </div>

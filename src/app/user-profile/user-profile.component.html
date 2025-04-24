@@ -1,110 +1,126 @@
+<!-- Contenedor principal del perfil de usuario -->
 <div class="main-container">
-    <div class="profile-container">
+  <!-- Contenedor específico del perfil de usuario -->
+  <div class="profile-container">
+      <!-- Título de la sección de perfil -->
       <h2>Perfil de Usuario</h2>
-  
-      <!-- Informació bàsica del perfil -->
+
+      <!-- Sección para mostrar y editar la información básica del perfil -->
       <div class="profile-section">
-        <h3>Información de perfil</h3>
-  
-        @if (!showEditForm) {
-          <p><strong>Nombre:</strong> {{ f['name'].value }}</p>
-          <p><strong>Correo:</strong> {{ f['email'].value }}</p>
-          <button (click)="showEditForm = true">Editar</button>
-        }
-  
-        @if (showEditForm) {
-          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="vertical-form">
-            <div class="form-group">
-              <label for="name">Nombre</label>
-              <input id="name" formControlName="name" />
-              @if (f['name'].touched && f['name'].invalid) {
-                <div class="error">
-                  @if (f['name'].errors?.['required']) {
-                    <small>El nombre es obligatorio.</small>
-                  }
-                  @if (f['name'].errors?.['minlength']) {
-                    <small>Mínimo 2 caracteres.</small>
-                  }
-                </div>
-              }
-            </div>
-  
-            <div class="form-group">
-              <label for="email">Correo electrónico</label>
-              <input id="email" formControlName="email" type="email" />
-              @if (f['email'].touched && f['email'].invalid) {
-                <div class="error">
-                  @if (f['email'].errors?.['required']) {
-                    <small>El correo es obligatorio.</small>
-                  }
-                  @if (f['email'].errors?.['email']) {
-                    <small>Formato de correo no valido.</small>
-                  }
-                </div>
-              }
-            </div>
-  
-            <div class="form-group">
-              <label for="password">Contraseña nueva</label>
-              <input id="password" formControlName="password" type="password" />
-            </div>
-  
-            <div class="form-group">
-              <label for="confirmPassword">Confirma la contraseña</label>
-              <input id="confirmPassword" formControlName="confirmPassword" type="password" />
-              @if (profileForm.errors?.['mismatch'] && f['confirmPassword'].touched) {
-                <div class="error">
-                  <small>Las contraseñas no coinciden.</small>
-                </div>
-              }
-            </div>
-  
-            <div class="form-group">
-              <label for="paymentMethod">Método de pago</label>
-              <input id="paymentMethod" formControlName="paymentMethod" placeholder="Ex: Visa ****1234" />
-            </div>
-  
-            <div class="form-actions">
-              <button type="submit">Guardar</button>
-              <button type="button" (click)="showEditForm = false">Cancelar</button>
-            </div>
-          </form>
-        }
-      </div>
-  
-      <hr />
-  
-      <!-- Historial de comandes -->
-      <div class="profile-section">
-        <h3>Historial de pedidos</h3>
-        <ul>
-          @for (order of orderHistory; track order.id) {
-            <li>
-              <strong>Pedido #{{ order.id }}</strong> - {{ order.date }} - {{ order.total }} €
-            </li>
+          <h3>Información de perfil</h3>
+
+          <!-- Si no se está mostrando el formulario de edición, se muestran los datos de perfil -->
+          @if (!showEditForm) {
+              <p><strong>Nombre:</strong> {{ f['name'].value }}</p>
+              <p><strong>Correo:</strong> {{ f['email'].value }}</p>
+              <!-- Botón para activar el modo de edición -->
+              <button (click)="showEditForm = true">Editar</button>
           }
-        </ul>
-      </div>
-  
-      <hr />
-  
-      <!-- Mètodes de pagament -->
-      <div class="profile-section">
-        <h3>Métodos de pago guardados</h3>
-        <ul>
-          @for (method of paymentMethods; track method) {
-            <li>{{ method }}</li>
+
+          <!-- Si se está mostrando el formulario de edición, mostramos el formulario de modificación -->
+          @if (showEditForm) {
+              <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="vertical-form">
+                  <!-- Campo para editar el nombre -->
+                  <div class="form-group">
+                      <label for="name">Nombre</label>
+                      <input id="name" formControlName="name" />
+                      <!-- Validación de campo de nombre -->
+                      @if (f['name'].touched && f['name'].invalid) {
+                          <div class="error">
+                              @if (f['name'].errors?.['required']) {
+                                  <small>El nombre es obligatorio.</small>
+                              }
+                              @if (f['name'].errors?.['minlength']) {
+                                  <small>Mínimo 2 caracteres.</small>
+                              }
+                          </div>
+                      }
+                  </div>
+
+                  <!-- Campo para editar el correo electrónico -->
+                  <div class="form-group">
+                      <label for="email">Correo electrónico</label>
+                      <input id="email" formControlName="email" type="email" />
+                      <!-- Validación de campo de correo electrónico -->
+                      @if (f['email'].touched && f['email'].invalid) {
+                          <div class="error">
+                              @if (f['email'].errors?.['required']) {
+                                  <small>El correo es obligatorio.</small>
+                              }
+                              @if (f['email'].errors?.['email']) {
+                                  <small>Formato de correo no válido.</small>
+                              }
+                          </div>
+                      }
+                  </div>
+
+                  <!-- Campo para ingresar una nueva contraseña -->
+                  <div class="form-group">
+                      <label for="password">Contraseña nueva</label>
+                      <input id="password" formControlName="password" type="password" />
+                  </div>
+
+                  <!-- Campo para confirmar la nueva contraseña -->
+                  <div class="form-group">
+                      <label for="confirmPassword">Confirma la contraseña</label>
+                      <input id="confirmPassword" formControlName="confirmPassword" type="password" />
+                      <!-- Validación para confirmar que las contraseñas coinciden -->
+                      @if (profileForm.errors?.['mismatch'] && f['confirmPassword'].touched) {
+                          <div class="error">
+                              <small>Las contraseñas no coinciden.</small>
+                          </div>
+                      }
+                  </div>
+
+                  <!-- Campo para editar el método de pago -->
+                  <div class="form-group">
+                      <label for="paymentMethod">Método de pago</label>
+                      <input id="paymentMethod" formControlName="paymentMethod" placeholder="Ex: Visa ****1234" />
+                  </div>
+
+                  <!-- Botones de acción para guardar o cancelar cambios -->
+                  <div class="form-actions">
+                      <button type="submit">Guardar</button>
+                      <button type="button" (click)="showEditForm = false">Cancelar</button>
+                  </div>
+              </form>
           }
-        </ul>
       </div>
-  
+
       <hr />
-  
-      <!-- Configuració del compte -->
+
+      <!-- Sección de historial de pedidos del usuario -->
       <div class="profile-section">
-        <h3>Configuración de cuenta y seguridad</h3>
-        <p>Cambia tu contraseña, cierra sesión en otros dispositivos, etc.</p>
+          <h3>Historial de pedidos</h3>
+          <ul>
+              <!-- Iterar sobre el historial de pedidos y mostrar cada pedido -->
+              @for (order of orderHistory; track order.id) {
+                  <li>
+                      <strong>Pedido #{{ order.id }}</strong> - {{ order.date }} - {{ order.total }} €
+                  </li>
+              }
+          </ul>
       </div>
-    </div>
+
+      <hr />
+
+      <!-- Sección de métodos de pago guardados -->
+      <div class="profile-section">
+          <h3>Métodos de pago guardados</h3>
+          <ul>
+              <!-- Iterar sobre los métodos de pago y mostrarlos -->
+              @for (method of paymentMethods; track method) {
+                  <li>{{ method }}</li>
+              }
+          </ul>
+      </div>
+
+      <hr />
+
+      <!-- Sección de configuración de cuenta y seguridad -->
+      <div class="profile-section">
+          <h3>Configuración de cuenta y seguridad</h3>
+          <p>Cambia tu contraseña, cierra sesión en otros dispositivos, etc.</p>
+      </div>
   </div>
-  
+</div>
