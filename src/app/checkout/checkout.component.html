@@ -1,38 +1,52 @@
+<!-- Contenedor principal del proceso de checkout -->
 <div class="checkout-container" aria-labelledby="proceso-pago-heading">
+  <!-- Encabezado del proceso de pago -->
   <h2 id="proceso-pago-heading" aria-label="Encabezado de proceso de pago">Proceso de Pago</h2>
 
+  <!-- Verificamos si la orden no ha sido confirmada -->
   @if (!orderConfirmed) {
+    <!-- Formulario de pago -->
     <form [formGroup]="checkoutForm" (ngSubmit)="confirmPurchase()" aria-labelledby="formulario-pago-heading">
+      <!-- Título oculto del formulario para accesibilidad -->
       <h3 id="formulario-pago-heading" class="visually-hidden">Formulario de Pago</h3>
 
+      <!-- Campo: Nombre Completo -->
       <label for="fullName" aria-labelledby="fullName-label">Nombre Completo</label>
       <input id="fullName" formControlName="fullName" type="text" aria-describedby="fullName-description" required />
       <p id="fullName-description" class="visually-hidden">Ingrese su nombre completo</p>
 
+      <!-- Campo: Dirección -->
       <label for="address" aria-labelledby="address-label">Dirección</label>
       <input id="address" formControlName="address" type="text" aria-describedby="address-description" required />
       <p id="address-description" class="visually-hidden">Ingrese su dirección completa</p>
 
+      <!-- Campo: Ciudad -->
       <label for="city" aria-labelledby="city-label">Ciudad</label>
       <input id="city" formControlName="city" type="text" aria-describedby="city-description" required />
       <p id="city-description" class="visually-hidden">Ingrese su ciudad</p>
 
+      <!-- Selector: Método de Pago -->
       <label for="paymentMethod" aria-labelledby="paymentMethod-label">Método de Pago</label>
       <select id="paymentMethod" formControlName="paymentMethod" aria-describedby="paymentMethod-description" required>
+        <!-- Opción: Tarjeta de Crédito -->
         <option value="creditCard" aria-label="Opción: Tarjeta de Crédito">Tarjeta de Crédito</option>
+        <!-- Opción: PayPal -->
         <option value="paypal" aria-label="Opción: PayPal">PayPal</option>
       </select>
       <p id="paymentMethod-description" class="visually-hidden">Seleccione su método de pago</p>
 
+      <!-- Campo: Número de Tarjeta (solo si el método es tarjeta de crédito) -->
       @if (checkoutForm.value.paymentMethod === 'creditCard') {
         <label for="cardNumber" aria-labelledby="cardNumber-label">Número de Tarjeta</label>
         <input id="cardNumber" formControlName="cardNumber" type="text" aria-describedby="cardNumber-description" required />
         <p id="cardNumber-description" class="visually-hidden">Ingrese su número de tarjeta de crédito</p>
       }
 
+      <!-- Botón para confirmar la compra -->
       <button type="submit" [disabled]="checkoutForm.invalid && checkoutForm.value.paymentMethod !== 'paypal'" aria-label="Confirmar compra">Confirmar Compra</button>
     </form>
   } @else {
+    <!-- Mensaje de confirmación de compra -->
     <div class="confirmation" aria-labelledby="confirmation-heading">
       <h2 id="confirmation-heading">¡Compra realizada con éxito!</h2>
       <p>Gracias por su compra.</p>

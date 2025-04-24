@@ -1,12 +1,22 @@
+<!-- Contenedor principal de la página de inicio de sesión -->
 <div class="main-container" aria-labelledby="inicio-sesion-titulo">
+
+  <!-- Contenedor del formulario de login -->
   <div class="login-container" aria-labelledby="formulario-inicio-sesion">
+
+    <!-- Título principal del inicio de sesión -->
     <h2 id="inicio-sesion-titulo" aria-label="Encabezado de inicio de sesión">Iniciar Sesión</h2>
+
+    <!-- Formulario de inicio de sesión -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-labelledby="formulario-inicio-sesion">
+      <!-- Título oculto para tecnologías asistivas -->
       <h3 id="formulario-inicio-sesion" class="visually-hidden">Formulario de inicio de sesión</h3>
 
       <!-- Campo de correo electrónico -->
       <label for="email" id="email-label">Correo Electrónico</label>
       <input id="email" type="email" formControlName="email" aria-labelledby="email-label" />
+      
+      <!-- Mensaje de error para el campo de correo -->
       @if (submitted && f['email'].invalid) {
         <div class="error" role="alert" aria-live="assertive" aria-labelledby="email-error">
           <span id="email-error">Correo válido requerido.</span>
@@ -17,22 +27,25 @@
       <label for="password" id="password-label">Contraseña</label>
       <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" aria-labelledby="password-label" />
       
-      <!-- Botón para mostrar u ocultar contraseña -->
+      <!-- Botón para alternar visibilidad de la contraseña -->
       <button type="button" (click)="togglePassword()" aria-describedby="password-label">
         {{ showPassword ? 'Ocultar' : 'Mostrar' }} Contraseña
       </button>
+
+      <!-- Mensaje de error para el campo de contraseña -->
       @if (submitted && f['password'].invalid) {
         <div class="error" role="alert" aria-live="assertive" aria-labelledby="password-error">
           <span id="password-error">Contraseña requerida.</span>
         </div>
       }
 
-      <!-- Botón de inicio de sesión -->
+      <!-- Botón para enviar el formulario de inicio de sesión -->
       <button type="submit" aria-labelledby="submit-button">
         Iniciar sesión
       </button>
     </form>
   
+    <!-- Enlaces adicionales: registro y recuperación de contraseña -->
     <p>¿No tienes cuenta? <a routerLink="/register" aria-label="Enlace para registrarse">Regístrate aquí</a></p>
     <p><a href="#" aria-label="Enlace para recuperar contraseña">¿Olvidaste tu contraseña?</a></p>
   </div>

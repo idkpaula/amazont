@@ -4,6 +4,7 @@
     <!-- Iteramos sobre los artículos del carrito -->
     @for (item of cartItems; track item.id) {
       <div class="cart-item" aria-labelledby="cart-item">
+        <!-- Imagen del producto -->
         <img [src]="item.image" alt="Nombre del producto" aria-hidden="true" />
         
         <div class="info">
@@ -28,12 +29,18 @@
 
     <!-- Resumen del carrito -->
     <div class="summary" aria-label="Resumen del carrito">
+      <!-- Subtotal del carrito -->
       <p aria-labelledby="cart-subtotal">Subtotal: {{ subtotal | currency }}</p>
+
+      <!-- Coste del envío -->
       <p aria-labelledby="cart-shipping">Envío: {{ shipping | currency }}</p>
+
+      <!-- Total del carrito -->
       <h2 id="cart-total" aria-labelledby="cart-total">Total: {{ total | currency }}</h2>
 
       <!-- Enlace al pago -->
       <a routerLink="/cart/checkout">
+        <!-- Botón para proceder al pago -->
         <button aria-labelledby="checkout-button">Proceder al pago</button>
       </a>
     </div>
@@ -43,4 +50,5 @@
   }
 </div>
 
+<!-- Salida del router para renderizar vistas hijas -->
 <router-outlet></router-outlet>

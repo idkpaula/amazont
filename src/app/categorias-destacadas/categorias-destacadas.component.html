@@ -1,19 +1,24 @@
+<!-- Título principal de la sección de categorías recomendadas -->
 <h1 id="categorias-recomendadas-heading" aria-label="Sección de categorías recomendadas">Categorías recomendadas</h1>
 
+<!-- Lista de categorías destacadas -->
 <div class="list" aria-labelledby="categorias-recomendadas-heading">
+  <!-- Iteramos sobre cada categoría destacada -->
   @for (categorias of categoriasDestacadas; track categorias.id) {
-    <div class="card" role="region" aria-labelledby="categoria titulo">
+    <!-- Tarjeta individual de categoría recomendada -->
+    <div class="card" role="region" aria-labelledby="categoria-titulo">
+
       <!-- Imagen de la categoría con descripción alternativa -->
       <img class="card-img" [src]="categorias.img" alt="Nombre de la categoria" />
 
       <!-- Título de la categoría -->
-      <h2 id="categoria titulo">{{ categorias.nomcategoria }}</h2>
+      <h2 id="categoria-titulo">{{ categorias.nomcategoria }}</h2>
 
       <div class="card__content">
         <!-- Descripción de la categoría -->
-        <h3 class="card__description" id="categoria descripcion">{{ categorias.descripcion }}</h3>
+        <h3 class="card__description" id="categoria-descripcion">{{ categorias.descripcion }}</h3>
         
-        <!-- Botón para leer más -->
+        <!-- Botón para leer más información sobre la categoría -->
         <button aria-label="Leer más sobre">Leer más</button>
       </div>
     </div>

@@ -1,7 +1,12 @@
+<!-- Título principal de la sección de categorías -->
 <h1 id="categorias-heading" aria-label="Sección de categorías">Nuestras Categorías</h1>
 <br>
+
+<!-- Lista de categorías disponibles -->
 <div class="list" aria-labelledby="categorias-heading">
+  <!-- Iteramos sobre cada categoría -->
   @for (categoria of categorias; track categoria.id) {
+    <!-- Componente que representa una categoría individual -->
     <app-categoria-item 
       [categoria]="categoria" 
       (click)="seleccionarCategoria(categoria.id)" 
@@ -9,13 +14,22 @@
     </app-categoria-item>
   }
 </div>
+
+<!-- Separador visual -->
 <hr class="rounded">
 
+<!-- Sección de productos, solo visible si hay una categoría seleccionada -->
 @if (categoriaSeleccionada) {
+  <!-- Título de la sección de productos -->
   <h1 id="productos-heading" aria-label="Sección de productos">Productos</h1>
+
+  <!-- Contenedor de productos filtrados por categoría -->
   <div class="productos-container" aria-labelledby="productos-heading">
+    <!-- Iteramos sobre los productos -->
     @for (producto of productos; track producto.id) {
+      <!-- Mostramos solo los productos que pertenecen a la categoría seleccionada -->
       @if (producto.categoriaId === categoriaSeleccionada) {
+        <!-- Componente que representa un producto individual -->
         <app-producto-item 
           [producto]="producto" 
           aria-labelledby="producto nombre">
@@ -25,4 +39,5 @@
   </div>
 }
 
+<!-- Salida del router para mostrar vistas hijas -->
 <router-outlet></router-outlet>
