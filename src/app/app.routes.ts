@@ -55,4 +55,4 @@ export const routes: Routes = [
     title: 'Admin page',
     component: ProductAdminComponent
   }  
-];
+]; 
