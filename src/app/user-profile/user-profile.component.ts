@@ -39,7 +39,7 @@ export class UserProfileComponent {
     return pass === confirm ? null : { mismatch: true };
   }
 
-  onSubmit() {
+  onSubmit() { 
     if (this.profileForm.valid) {
       console.log('Perfil actualitzat:', this.profileForm.value);
       this.showEditForm = false;
