@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './product-admin.component.html',
-  styleUrl: './product-admin.component.css'
+  styleUrls: ['./product-admin.component.css']
 })
 export class ProductAdminComponent {
   products: Product[] = [];
@@ -27,11 +27,15 @@ export class ProductAdminComponent {
     if (this.editing && this.form.id !== undefined) {
       this.productService.updateProduct(this.form as Product);
     } else {
-      const newProduct = {
-        ...this.form,
+      const newProduct: Product = {
         id: Date.now(),
-        sales: 0,
-      } as Product;
+        title: this.form.title ?? '',
+        description: this.form.description ?? '',
+        price: this.form.price ?? 0,
+        image: this.form.image ?? '',
+        stock: this.form.stock ?? 0,
+        sales: 0
+      };
       this.productService.addProduct(newProduct);
     }
     this.resetForm();
@@ -47,11 +51,36 @@ export class ProductAdminComponent {
     this.editing = false;
   }
 
+  // Estadísticas generales
   get totalVentas(): number {
-    return this.products.reduce((sum, p) => sum + p.sales, 0);
+    return this.products.reduce((sum, p) => sum + (p.sales ?? 0), 0);
   }
-  
+
   get totalIngresos(): number {
-    return this.products.reduce((sum, p) => sum + p.price * p.sales, 0);
-  }  
+    return this.products.reduce((sum, p) => sum + ((p.price ?? 0) * (p.sales ?? 0)), 0);
+  }
+
+  get totalStock(): number {
+    return this.products.reduce((acc, p) => acc + (p.stock ?? 0), 0);
+  }
+
+  get averagePrice(): string {
+    const total = this.products.reduce((acc, p) => acc + (p.price ?? 0), 0);
+    return this.products.length ? (total / this.products.length).toFixed(2) : '0';
+  }
+
+  get averageSales(): string {
+    const total = this.products.reduce((acc, p) => acc + (p.sales ?? 0), 0);
+    return this.products.length ? (total / this.products.length).toFixed(1) : '0';
+  }
+
+  get topProduct(): Product | null {
+    return this.products.reduce((top: Product | null, p: Product) =>
+      !top || (p.sales ?? 0) > (top.sales ?? 0) ? p : top, null);
+  }
+
+  // Función trackByProductId para optimizar el *ngFor
+  trackByProductId(index: number, product: Product): number {
+    return product.id; // Retorna el id del producto para hacer el seguimiento
+  }
 }
