@@ -99,44 +99,59 @@
   <section aria-labelledby="mis-productos" class="products-section">
     <h2 id="mis-productos" class="text-lg font-semibold mb-2 text-white">Mis Productos</h2>
 
+    <!-- Condicional ngIf para verificar si hay productos -->
     <div *ngIf="products.length > 0; else noProducts">
-      @for (product of products; track product.id) {
-        <article class="product-item" aria-labelledby="product-title">
-          <h3 id="product-title" class="text-md font-bold">{{ product.title }}</h3>
-          <img [src]="product.image" alt="Imagen del producto" width="100" />
-          <p>{{ product.description }}</p>
+      <!-- Bucle ngFor para iterar sobre los productos -->
+      <ng-container *ngFor="let product of products; trackBy: trackByProductId">
+        <article class="product-item bg-white p-4 rounded shadow mb-4" aria-labelledby="product-title">
+          <h3 id="product-title" class="text-md font-bold text-purple-600">{{ product.title }}</h3>
+          <img [src]="product.image" alt="Imagen del producto" width="100" class="rounded" />
+          <p class="text-gray-700">{{ product.description }}</p>
           <p><strong>Precio:</strong> ${{ product.price }}</p>
-          <p><strong>Stock disponible:</strong> {{ product.stock }}</p>
+          <p><strong>Stock:</strong> {{ product.stock }}</p>
           <p><strong>Ventas:</strong> {{ product.sales }}</p>
-          <p><strong>Ingresos generados:</strong> ${{ product.price * product.sales }}</p>
+          <p><strong>Ingresos:</strong> ${{ product.price * product.sales }}</p>
+          <p *ngIf="product.id === topProduct?.id" class="text-green-600 font-semibold">🔥 Producto más vendido</p>
 
           <button 
             (click)="edit(product)" 
             aria-label="Editar producto"
             aria-expanded="false"
-            class="edit-button"
+            class="edit-button mt-2 bg-orange-500 text-white px-3 py-1 rounded"
           >
             Editar
           </button>
         </article>
-      }
+      </ng-container>
 
-      <hr class="my-6" />
+      <hr class="my-6 border-purple-300" />
 
-      <!-- Resumen de ventas -->
-      <section aria-label="Resumen de ventas">
-        <div class="summary-container">
-          <h3 class="text-md font-bold mb-2">Resumen General</h3>
+      <!-- Resumen de estadísticas -->
+      <section aria-label="Resumen de estadísticas" class="summary-container bg-gray-800 text-white p-4 rounded shadow">
+        <h3 class="text-lg font-bold mb-4 border-b border-purple-400 pb-2">📊 Resumen General</h3>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm md:text-base">
           <p><strong>Total de productos:</strong> {{ products.length }}</p>
-          <p><strong>Total de ventas:</strong> {{ totalVentas }}</p>
+          <p><strong>Total ventas:</strong> {{ totalVentas }}</p>
           <p><strong>Ingresos totales:</strong> ${{ totalIngresos }}</p>
-          <p><strong>Stock total disponible:</strong> {{ totalStock }}</p>
+          <p><strong>Stock total:</strong> {{ totalStock }}</p>
+          <p><strong>Precio promedio:</strong> ${{ averagePrice }}</p>
+          <p><strong>Ventas promedio:</strong> {{ averageSales }}</p>
+        </div>
+
+        <div class="mt-4">
+          <h4 class="font-semibold">Producto más vendido:</h4>
+          <p *ngIf="topProduct">
+            {{ topProduct.title }} con {{ topProduct.sales }} ventas
+          </p>
         </div>
       </section>
     </div>
 
+    <!-- Plantilla alternativa si no hay productos -->
     <ng-template #noProducts>
-      <p class="text-white">No tienes productos aún.</p>
+      <p class="text-white text-sm">No tienes productos aún.</p>
     </ng-template>
+
   </section>
 </main>
