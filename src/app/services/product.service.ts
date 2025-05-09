@@ -6,16 +6,6 @@ import { Product } from '../../interfaces/product';
   providedIn: 'root'
 })
 export class ProductService {
-  private products = [
-    { id: 1, title: 'Producto 1', description: 'Descripción del producto 1', price: 100, availability: true, images: ['https://picsum.photos/200', 'https://picsum.photos/201'], reviews: [{ user: 'Juan', rating: 4, comment: 'Muy bueno' }] },
-    { id: 2, title: 'Producto 2', description: 'Descripción del producto 2', price: 200, availability: false, images: ['https://picsum.photos/202', 'https://picsum.photos/203'], reviews: [{ user: 'Ana', rating: 5, comment: 'Excelente calidad' }] }
-  ];
-
-  getProductById(id: number): Observable<any> {
-    const product = this.products.find(p => p.id === id);
-    return of(product);
-  }
-
   private productos = new BehaviorSubject<Product[]>([
     {
       id: 1,
@@ -23,20 +13,35 @@ export class ProductService {
       description: 'Descripción de ejemplo',
       price: 100,
       image: 'https://via.placeholder.com/150',
-      sales: 10,
+      stock: 20,
+      sales: 10
     },
+    {
+      id: 2,
+      title: 'Otro producto',
+      description: 'Otro producto de prueba',
+      price: 200,
+      image: 'https://via.placeholder.com/200',
+      stock: 15,
+      sales: 5
+    }
   ]);
 
   getProducts(): Observable<Product[]> {
     return this.productos.asObservable();
   }
 
-  addProduct(product: Product) {
+  getProductById(id: number): Observable<Product | undefined> {
+    const product = this.productos.getValue().find(p => p.id === id);
+    return of(product);
+  }
+
+  addProduct(product: Product): void {
     const updated = [...this.productos.getValue(), product];
     this.productos.next(updated);
   }
 
-  updateProduct(product: Product) {
+  updateProduct(product: Product): void {
     const updated = this.productos.getValue().map((p) =>
       p.id === product.id ? product : p
     );

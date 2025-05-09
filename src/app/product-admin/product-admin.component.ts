@@ -27,11 +27,15 @@ export class ProductAdminComponent {
     if (this.editing && this.form.id !== undefined) {
       this.productService.updateProduct(this.form as Product);
     } else {
-      const newProduct = {
-        ...this.form,
+      const newProduct: Product = {
         id: Date.now(),
-        sales: 0,
-      } as Product;
+        title: this.form.title ?? '',
+        description: this.form.description ?? '',
+        price: this.form.price ?? 0,
+        image: this.form.image ?? '',
+        stock: this.form.stock ?? 0,
+        sales: 0
+      };
       this.productService.addProduct(newProduct);
     }
     this.resetForm();
@@ -48,10 +52,15 @@ export class ProductAdminComponent {
   }
 
   get totalVentas(): number {
-    return this.products.reduce((sum, p) => sum + p.sales, 0);
+    return this.products.reduce((sum, p) => sum + (p.sales ?? 0), 0);
   }
   
   get totalIngresos(): number {
-    return this.products.reduce((sum, p) => sum + p.price * p.sales, 0);
-  }  
+    return this.products.reduce((sum, p) => sum + ((p.price ?? 0) * (p.sales ?? 0)), 0);
+  }
+
+  get totalStock(): number {
+    return this.products.reduce((acc, p) => acc + (p.stock ?? 0), 0);
+  }
+
 }
