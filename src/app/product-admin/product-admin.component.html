@@ -1,16 +1,17 @@
 <!-- Encabezado de la página con fondo degradado -->
 <header class="p-4 border-b bg-gradient-to-r from-purple-500 to-orange-500">
+  <!-- Título de la página -->
   <h1 class="text-xl font-bold mb-4 text-white" id="page-title">Administrar Productos</h1>
 </header>
 
 <!-- Contenido principal de la página -->
 <main role="main" aria-labelledby="page-title" class="p-4">
 
-  <!-- Formulario para añadir o editar productos -->
+  <!-- Sección del formulario para añadir o editar productos -->
   <section aria-label="Formulario para añadir o editar productos" class="form-container">
     <form (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
 
-      <!-- Campo: Título -->
+      <!-- Campo: Título del producto -->
       <div class="form-group">
         <label for="title">Título</label>
         <input 
@@ -24,7 +25,7 @@
         />
       </div>
 
-      <!-- Campo: Descripción -->
+      <!-- Campo: Descripción del producto -->
       <div class="form-group">
         <label for="description">Descripción</label>
         <input 
@@ -38,7 +39,7 @@
         />
       </div>
 
-      <!-- Campo: Precio -->
+      <!-- Campo: Precio del producto -->
       <div class="form-group">
         <label for="price">Precio</label>
         <input 
@@ -53,22 +54,7 @@
         />
       </div>
 
-      <!-- Campo: Stock -->
-      <div class="form-group">
-        <label for="stock">Stock</label>
-        <input 
-          id="stock"
-          type="number"
-          [(ngModel)]="form.stock"
-          name="stock"
-          placeholder="Cantidad disponible"
-          required
-          aria-required="true"
-          class="input-field"
-        />
-      </div>
-      
-      <!-- Campo: URL de Imagen -->
+      <!-- Campo: URL de imagen del producto -->
       <div class="form-group">
         <label for="image">URL de Imagen</label>
         <input 
@@ -79,10 +65,11 @@
           aria-describedby="imageDesc"
           class="input-field"
         />
+        <!-- Descripción de ayuda para el campo de imagen -->
         <small id="imageDesc" class="text-white">Debe ser una URL válida con formato de imagen.</small>
       </div>
 
-      <!-- Botón enviar -->
+      <!-- Botón para añadir o actualizar producto -->
       <button 
         type="submit"
         aria-label="Editar producto"
@@ -93,65 +80,53 @@
     </form>
   </section>
 
+  <!-- Separador visual -->
   <hr class="my-6" />
 
-  <!-- Productos creados -->
+  <!-- Sección de productos ya creados -->
   <section aria-labelledby="mis-productos" class="products-section">
     <h2 id="mis-productos" class="text-lg font-semibold mb-2 text-white">Mis Productos</h2>
 
-    <!-- Condicional ngIf para verificar si hay productos -->
+    <!-- Lista de productos -->
     <div *ngIf="products.length > 0; else noProducts">
-      <!-- Bucle ngFor para iterar sobre los productos -->
-      <ng-container *ngFor="let product of products; trackBy: trackByProductId">
-        <article class="product-item bg-white p-4 rounded shadow mb-4" aria-labelledby="product-title">
-          <h3 id="product-title" class="text-md font-bold text-purple-600">{{ product.title }}</h3>
-          <img [src]="product.image" alt="Imagen del producto" width="100" class="rounded" />
-          <p class="text-gray-700">{{ product.description }}</p>
-          <p><strong>Precio:</strong> ${{ product.price }}</p>
-          <p><strong>Stock:</strong> {{ product.stock }}</p>
-          <p><strong>Ventas:</strong> {{ product.sales }}</p>
-          <p><strong>Ingresos:</strong> ${{ product.price * product.sales }}</p>
-          <p *ngIf="product.id === topProduct?.id" class="text-green-600 font-semibold">🔥 Producto más vendido</p>
+      @for (product of products; track product.id) {
+        <!-- Artículo individual de producto -->
+        <article class="product-item" aria-labelledby="product-title">
+          <h3 id="product-title" class="text-md font-bold">{{ product.title }}</h3>
+          <img [src]="product.image" alt="Imagen del producto" width="100" />
+          <p>{{ product.description }}</p>
+          <p><strong>Precio: ${{ product.price }}</strong></p>
+          <p>Ventas: {{ product.sales }}</p>
+          <p>Ingresos generados: <strong>${{ product.price * product.sales }}</strong></p>
 
+          <!-- Botón para editar el producto -->
           <button 
             (click)="edit(product)" 
             aria-label="Editar producto"
             aria-expanded="false"
-            class="edit-button mt-2 bg-orange-500 text-white px-3 py-1 rounded"
+            class="edit-button"
           >
             Editar
           </button>
         </article>
-      </ng-container>
+      }
 
-      <hr class="my-6 border-purple-300" />
+      <!-- Separador visual -->
+      <hr class="my-6" />
 
-      <!-- Resumen de estadísticas -->
-      <section aria-label="Resumen de estadísticas" class="summary-container bg-gray-800 text-white p-4 rounded shadow">
-        <h3 class="text-lg font-bold mb-4 border-b border-purple-400 pb-2">📊 Resumen General</h3>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm md:text-base">
-          <p><strong>Total de productos:</strong> {{ products.length }}</p>
-          <p><strong>Total ventas:</strong> {{ totalVentas }}</p>
-          <p><strong>Ingresos totales:</strong> ${{ totalIngresos }}</p>
-          <p><strong>Stock total:</strong> {{ totalStock }}</p>
-          <p><strong>Precio promedio:</strong> ${{ averagePrice }}</p>
-          <p><strong>Ventas promedio:</strong> {{ averageSales }}</p>
-        </div>
-
-        <div class="mt-4">
-          <h4 class="font-semibold">Producto más vendido:</h4>
-          <p *ngIf="topProduct">
-            {{ topProduct.title }} con {{ topProduct.sales }} ventas
-          </p>
+      <!-- Resumen general de las ventas -->
+      <section aria-label="Resumen de ventas">
+        <div class="summary-container">
+          <h3 class="text-md font-bold mb-2">Resumen General</h3>
+          <p>Total de ventas: <strong>{{ totalVentas }}</strong></p>
+          <p>Ingresos totales: <strong>${{ totalIngresos }}</strong></p>
         </div>
       </section>
     </div>
 
     <!-- Plantilla alternativa si no hay productos -->
     <ng-template #noProducts>
-      <p class="text-white text-sm">No tienes productos aún.</p>
+      <p class="text-white">No tienes productos aún.</p>
     </ng-template>
-
   </section>
 </main>
