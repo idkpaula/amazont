@@ -8,7 +8,7 @@
 
   <!-- Formulario para añadir o editar productos -->
   <section aria-label="Formulario para añadir o editar productos" class="form-container">
-    <form (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
+    <form #formElement (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
 
       <!-- Campo: Título -->
       <div class="form-group">
@@ -131,29 +131,6 @@
           </button>
         </article>
       </ng-container>
-
-      <hr class="my-6 border-purple-300" />
-
-      <!-- Resumen de estadísticas -->
-      <section aria-label="Resumen de estadísticas" class="summary-container bg-gray-800 text-white p-4 rounded shadow">
-        <h3 class="text-lg font-bold mb-4 border-b border-purple-400 pb-2">📊 Resumen General</h3>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm md:text-base">
-          <p><strong>Total de productos:</strong> {{ products.length }}</p>
-          <p><strong>Total ventas:</strong> {{ totalVentas }}</p>
-          <p><strong>Ingresos totales:</strong> ${{ totalIngresos }}</p>
-          <p><strong>Stock total:</strong> {{ totalStock }}</p>
-          <p><strong>Precio promedio:</strong> ${{ averagePrice }}</p>
-          <p><strong>Ventas promedio:</strong> {{ averageSales }}</p>
-        </div>
-
-        <div class="mt-4">
-          <h4 class="font-semibold">Producto más vendido:</h4>
-          <p *ngIf="topProduct">
-            {{ topProduct.title }} con {{ topProduct.sales }} ventas
-          </p>
-        </div>
-      </section>
     </div>
 
     <!-- Plantilla alternativa si no hay productos -->
@@ -161,5 +138,39 @@
       <p class="text-white text-sm">No tienes productos aún.</p>
     </ng-template>
 
+    <!-- Resumen de estadísticas: SIEMPRE visible -->
+    <section 
+      aria-label="Resumen de estadísticas" 
+      class="summary-container p-4 rounded shadow transition-opacity duration-300 mt-6"
+      [ngClass]="{
+        'bg-gray-800 text-white': products.length > 0,
+        'bg-gray-700 text-gray-400 opacity-60': products.length === 0
+      }"
+    >
+      <h3 class="text-lg font-bold mb-4 border-b pb-2"
+          [ngClass]="{
+            'border-purple-400': products.length > 0,
+            'border-gray-500': products.length === 0
+          }">
+        📊 Resumen General
+      </h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm md:text-base">
+        <p><strong>Total de productos:</strong> {{ products.length }}</p>
+        <p><strong>Total ventas:</strong> {{ totalVentas || 0 }}</p>
+        <p><strong>Ingresos totales:</strong> ${{ totalIngresos || 0 }}</p>
+        <p><strong>Stock total:</strong> {{ totalStock || 0 }}</p>
+        <p><strong>Precio promedio:</strong> ${{ averagePrice || 0 }}</p>
+        <p><strong>Ventas promedio:</strong> {{ averageSales || 0 }}</p>
+      </div>
+
+      <div class="mt-4">
+        <h4 class="font-semibold">Producto más vendido:</h4>
+        <p *ngIf="topProduct; else noTop">
+          {{ topProduct.title }} con {{ topProduct.sales }} ventas
+        </p>
+        <ng-template #noTop><span>No hay datos aún.</span></ng-template>
+      </div>
+    </section>
   </section>
 </main>

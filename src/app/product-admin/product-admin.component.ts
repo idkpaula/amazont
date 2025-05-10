@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../../interfaces/product';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ export class ProductAdminComponent {
   products: Product[] = [];
   form: Partial<Product> = {};
   editing: boolean = false;
+  @ViewChild('formElement') formElement!: ElementRef;
 
   constructor(private productService: ProductService) {}
 
@@ -44,7 +45,13 @@ export class ProductAdminComponent {
   edit(product: Product) {
     this.form = { ...product };
     this.editing = true;
+
+    // Scroll suave hacia el formulario
+    setTimeout(() => {
+      this.formElement?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   }
+
 
   resetForm() {
     this.form = {};
