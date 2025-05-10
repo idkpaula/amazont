@@ -83,4 +83,10 @@ export class ProductAdminComponent {
   trackByProductId(index: number, product: Product): number {
     return product.id; // Retorna el id del producto para hacer el seguimiento
   }
+
+  deleteProduct(id: number) {
+    // Elimina el producto del arreglo local
+    this.products = this.products.filter(p => p.id !== id);
+  }
+
 }
