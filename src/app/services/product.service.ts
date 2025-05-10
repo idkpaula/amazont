@@ -47,4 +47,11 @@ export class ProductService {
     );
     this.productos.next(updated);
   }
+
+  deleteProduct(id: number): void {
+    const updated = this.productos.getValue().filter(p => p.id !== id);
+    this.productos.next(updated);
+  }
+
 }
+ 

@@ -92,8 +92,8 @@ export class ProductAdminComponent {
   }
 
   deleteProduct(id: number) {
-    // Elimina el producto del arreglo local
-    this.products = this.products.filter(p => p.id !== id);
+    this.productService.deleteProduct(id);
   }
+
 
 }
