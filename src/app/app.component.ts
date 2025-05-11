@@ -3,6 +3,7 @@ import { BarraBusquedaComponent } from "./barra-busqueda/barra-busqueda.componen
 import { ProductoRecomendadoComponent } from "./producto-recomendado/producto-recomendado.component";
 import { CategoriasDestacadasComponent } from './categorias-destacadas/categorias-destacadas.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { ConexionService } from './services/conexion.service';
 
 @Component({
   selector: 'app-root',
@@ -22,5 +23,14 @@ export class AppComponent {
 
   closeUserMenu() {
     this.userMenuVisible = false;
+  }
+
+  constructor(private conexion: ConexionService) {}
+
+  ngOnInit() {
+    this.conexion.getDatos().subscribe(
+      data => console.log('Datos recibidos:', data),
+      error => console.error('Error:', error)
+    );
   }
 }
