@@ -44,13 +44,16 @@ export class RegisterComponent {
       email: this.f['email'].value,
       password: this.f['password'].value,
       accountType: this.f['accountType'].value,
-      acceptedTerms: this.f['acceptedTerms'].value
+      acceptedTerms: this.f['acceptedTerms'].value,
+      phone: '',    // Agrega si es parte del modelo y puede estar vacío
+      address: ''   // Igual que phone
     };
+
 
     this.conexion.registerUsuario(user).subscribe({
       next: (res) => {
         console.log('Registro exitoso:', res);
-        this.router.navigate(['/login']); // Redirige al login después de registrar
+        this.router.navigate(['/login']); 
       },
       error: (err) => {
         console.error('Error en el registro:', err);

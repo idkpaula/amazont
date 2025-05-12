@@ -4,4 +4,6 @@ export interface User {
     password: string;
     accountType: 'Cliente' | 'Vendedor';
     acceptedTerms: boolean;
+    phone: string;
+    address: string;
 }  
