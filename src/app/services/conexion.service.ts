@@ -31,6 +31,11 @@ export class ConexionService {
     return this.http.post(`${this.apiUrl}/user/Login`, data);
   }
 
+  logoutUsuario(): void {
+    localStorage.removeItem('token');  // Elimina el token almacenado
+    console.log('Sesión cerrada: token eliminado.');
+  }
+
   // Ejemplo de cómo hacer una solicitud protegida
   getUserProfile(): Observable<any> {
     const token = this.getAuthToken();

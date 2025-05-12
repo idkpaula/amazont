@@ -72,6 +72,11 @@ export class UserProfileComponent {
     }
   }
 
+  // Método que se ejecuta cuando el usuario hace clic en "Cerrar sesión"
+  onLogout() {
+    this.conexionService.logoutUsuario();
+    this.router.navigate(['/login']);
+  }
 
   get f() {
     return this.profileForm.controls;
