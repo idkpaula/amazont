@@ -40,7 +40,7 @@ export class LoginComponent {
       next: (res) => {
         console.log('Login exitoso', res);
         localStorage.setItem('token', res.token);
-        this.router.navigate(['/']);
+        this.router.navigate(['/']); // Redirige a la página principal
       },
       error: (err) => {
         if (err.status === 401) {
@@ -52,5 +52,6 @@ export class LoginComponent {
       }
     });
   }
+
   
 }

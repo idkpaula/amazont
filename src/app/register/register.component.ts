@@ -33,31 +33,32 @@ export class RegisterComponent {
 
   get f() {
     return this.registerForm.controls;
-  }
+  } 
 
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.invalid) return;
 
-    const user: User = {
+    const user = {
       name: this.f['name'].value,
       email: this.f['email'].value,
       password: this.f['password'].value,
-      accountType: this.f['accountType'].value,
-      acceptedTerms: this.f['acceptedTerms'].value,
-      phone: '',    // Agrega si es parte del modelo y puede estar vacío
-      address: ''   // Igual que phone
+      rol: this.f['accountType'].value // usa 'Cliente' o 'Vendedor'
     };
 
-
-    this.conexion.registerUsuario(user).subscribe({
+   this.conexion.registerUsuario(user).subscribe({
       next: (res) => {
         console.log('Registro exitoso:', res);
         this.router.navigate(['/login']); 
       },
       error: (err) => {
         console.error('Error en el registro:', err);
-        console.log('Detalles del error:', err.error);
+        if (err.error?.errors) {
+          // Muestra los mensajes de error del backend, si los hay
+          alert(`Error: ${err.error.errors.join(', ')}`);
+        } else {
+          alert('Hubo un error inesperado');
+        }
       }
     });
   }

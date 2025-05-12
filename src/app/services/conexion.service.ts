@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,18 +11,30 @@ export class ConexionService {
 
   constructor(private http: HttpClient) {}
 
-  // Obtenemos los datos de la ruta prueba de la api para comprovar que la conexión con Laravel es exitosa
+  // Método para obtener el token desde localStorage
+  private getAuthToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  // Método para obtener los datos de la ruta prueba de la api para comprobar que la conexión con Laravel es exitosa
   getDatos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/prueba`);
   }
 
   // Método para enviar los datos del registro a la base de datos
   registerUsuario(data: any): Observable<any> {
-    return this.http.post('http://localhost:8000/api/register', data);
+    return this.http.post(`${this.apiUrl}/user/Create`, data);
   }
 
+  // Método para login
   loginUsuario(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, data);
+    return this.http.post(`${this.apiUrl}/user/Login`, data);
   }
 
+  // Ejemplo de cómo hacer una solicitud protegida
+  getUserProfile(): Observable<any> {
+    const token = this.getAuthToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/user`, { headers });
+  }
 }
