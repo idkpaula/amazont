@@ -34,24 +34,22 @@ export class LoginComponent {
     this.submitted = true;
     if (this.loginForm.invalid) return;
 
-    const { email, password } = this.loginForm.value;
+    this.conexionService.loginUsuario(this.loginForm.value).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
 
-    this.conexionService.loginUsuario({ email, password }).subscribe({
-      next: (res) => {
-        console.log('Login exitoso', res);
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/']); // Redirige a la página principal
+        // Redirige al usuario según el valor recibido
+        const redirectUrl = response.redirect_to;
+        this.router.navigateByUrl(redirectUrl);
       },
-      error: (err) => {
-        if (err.status === 401) {
+      error: (error) => {
+        console.error('Error de login:', error);
+        if (error.status === 401) {
           alert('Credenciales incorrectas');
         } else {
           alert('Error en el servidor');
         }
-        console.error(err);
       }
     });
   }
-
-  
 }
