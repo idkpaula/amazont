@@ -42,4 +42,17 @@ export class ConexionService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/user`, { headers });
   }
+
+  updateUser(id: number, data: any): Observable<any> {
+    const token = this.getAuthToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.apiUrl}/user/Modify/${id}`, data, { headers });
+  }
+
+  deleteUser(id: number): Observable<any> {
+    const token = this.getAuthToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.apiUrl}/user/Delete/${id}`, { headers });
+  }
+
 }

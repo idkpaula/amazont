@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { ConexionService } from '../services/conexion.service'; // Asegúrate de tener este servicio
+import { ConexionService } from '../services/conexion.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,12 +19,10 @@ export class UserProfileComponent {
   showPasswordForm = false;
   submittedPassword = false;
 
-  orderHistory = [
-    { id: 1, date: '2024-11-23', total: 59.99 },
-    { id: 2, date: '2025-01-10', total: 89.5 }
-  ];
+  orderHistory: any[] = [];
+  paymentMethods: string[] = [];
 
-  paymentMethods = ['Visa ****1234', 'PayPal - joan@example.com'];
+  userId!: number; // 🆕 Se declara el userId
 
   constructor(
     private fb: FormBuilder,
@@ -47,10 +45,11 @@ export class UserProfileComponent {
       confirmNewPassword: ['', Validators.required]
     }, { validators: this.newPasswordsMatchValidator });
 
-    // Obtener datos del usuario logueado
     this.conexionService.getUserProfile().subscribe({
       next: (response) => {
         const user = response.user;
+        this.userId = user.id; // 🆕 Se guarda el ID del usuario
+
         this.profileForm.patchValue({
           name: user.name,
           email: user.email,
@@ -58,23 +57,25 @@ export class UserProfileComponent {
             ? `**** **** **** ${user.numero_tarjeta.slice(-4)}`
             : ''
         });
+
+        this.orderHistory = user.orders ?? [];
+        this.paymentMethods = user.numero_tarjeta
+          ? [`**** **** **** ${user.numero_tarjeta.slice(-4)}`]
+          : [];
       },
       error: (error) => {
         console.error('Error al obtener datos del usuario', error);
-        this.router.navigate(['/login']); // Redirigir si el token es inválido
+        this.router.navigate(['/login']);
       }
     });
   }
 
-
-  // Validador para el formulario principal
   passwordsMatchValidator(form: FormGroup) {
     const pass = form.get('password')?.value;
     const confirm = form.get('confirmPassword')?.value;
     return pass === confirm ? null : { mismatch: true };
   }
 
-  // Validador para el formulario de cambio de contraseña
   newPasswordsMatchValidator(form: FormGroup) {
     const newPassword = form.get('newPassword')?.value;
     const confirm = form.get('confirmNewPassword')?.value;
@@ -83,14 +84,47 @@ export class UserProfileComponent {
 
   onSubmit() {
     if (this.profileForm.valid) {
-      console.log('Perfil actualizado:', this.profileForm.value);
-      this.showEditForm = false;
+      const formData = this.profileForm.value;
+
+      const updatedData = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password ? formData.password : undefined,
+        numero_tarjeta: formData.paymentMethod.replace(/\D/g, '') // Elimina caracteres no numéricos
+      };
+
+      this.conexionService.updateUser(this.userId, updatedData).subscribe({
+        next: (response) => {
+          console.log('Usuario actualizado', response);
+          this.showEditForm = false;
+        },
+        error: (err) => {
+          console.error('Error al actualizar el usuario', err);
+        }
+      });
     } else {
       this.profileForm.markAllAsTouched();
     }
   }
 
-  // Método que se ejecuta cuando el usuario hace clic en "Cerrar sesión"
+  confirmDelete(): void {
+    const confirmed = window.confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.');
+
+    if (confirmed) {
+      this.conexionService.deleteUser(this.userId).subscribe({
+        next: () => {
+          alert('Cuenta eliminada correctamente.');
+          this.conexionService.logoutUsuario();  // Borra el token
+          this.router.navigate(['/login']);     // Redirige a login
+        },
+        error: (err) => {
+          console.error('Error al eliminar la cuenta', err);
+          alert('Hubo un error al eliminar la cuenta.');
+        }
+      });
+    } 
+  }
+
   onLogout() {
     this.conexionService.logoutUsuario();
     this.router.navigate(['/login']);
@@ -98,5 +132,9 @@ export class UserProfileComponent {
 
   get f() {
     return this.profileForm.controls;
+  }
+
+  trackById(index: number, item: any) {
+    return item.id;
   }
 }
