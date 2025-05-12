@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ConexionService {
 
-  private apiUrl = 'http://localhost:8000/api'; // URL base de tu API Laravel
+  private apiUrl = 'http://localhost:8000/api'; // URL base de mi API de Laravel
 
   constructor(private http: HttpClient) {}
 
