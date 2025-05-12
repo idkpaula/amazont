@@ -72,29 +72,6 @@ export class UserProfileComponent {
     }
   }
 
-  onPasswordSubmit() {
-    this.submittedPassword = true;
-    if (this.passwordForm.invalid) return;
-
-    const { currentPassword, newPassword } = this.passwordForm.value;
-
-    this.conexionService.updatePassword({ currentPassword, newPassword }).subscribe({
-      next: () => {
-        alert('Contraseña actualizada correctamente');
-        this.showPasswordForm = false;
-        this.passwordForm.reset();
-        this.submittedPassword = false;
-      },
-      error: (err) => {
-        if (err.status === 401) {
-          this.passwordForm.setErrors({ wrongPassword: true });
-        } else {
-          alert('Error al actualizar contraseña');
-        }
-      }
-    });
-  }
-
 
   get f() {
     return this.profileForm.controls;
