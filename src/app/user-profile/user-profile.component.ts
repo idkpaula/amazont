@@ -34,20 +34,38 @@ export class UserProfileComponent {
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
-      name: ['Joan', [Validators.required, Validators.minLength(2)]],
-      email: ['joan@example.com', [Validators.required, Validators.email]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6)]],
       confirmPassword: [''],
-      paymentMethod: ['Visa ****1234']
+      paymentMethod: ['']
     }, { validators: this.passwordsMatchValidator });
 
-    // Formulario de cambio de contraseña
     this.passwordForm = this.fb.group({
       currentPassword: ['', Validators.required],
       newPassword: ['', Validators.required],
       confirmNewPassword: ['', Validators.required]
     }, { validators: this.newPasswordsMatchValidator });
+
+    // Obtener datos del usuario logueado
+    this.conexionService.getUserProfile().subscribe({
+      next: (response) => {
+        const user = response.user;
+        this.profileForm.patchValue({
+          name: user.name,
+          email: user.email,
+          paymentMethod: user.numero_tarjeta
+            ? `**** **** **** ${user.numero_tarjeta.slice(-4)}`
+            : ''
+        });
+      },
+      error: (error) => {
+        console.error('Error al obtener datos del usuario', error);
+        this.router.navigate(['/login']); // Redirigir si el token es inválido
+      }
+    });
   }
+
 
   // Validador para el formulario principal
   passwordsMatchValidator(form: FormGroup) {
