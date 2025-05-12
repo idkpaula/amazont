@@ -24,4 +24,9 @@ export class ConexionService {
   loginUsuario(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data);
   }
+
+  updatePassword(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/update-password`, data, { withCredentials: true });
+  }
+
 }
