@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ConexionService } from '../services/conexion.service'; // Asegúrate de tener este servicio
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +13,11 @@ import { RouterModule } from '@angular/router';
 })
 export class UserProfileComponent {
   profileForm!: FormGroup;
+  passwordForm!: FormGroup;
+
   showEditForm = false;
+  showPasswordForm = false;
+  submittedPassword = false;
 
   orderHistory = [
     { id: 1, date: '2024-11-23', total: 59.99 },
@@ -21,7 +26,11 @@ export class UserProfileComponent {
 
   paymentMethods = ['Visa ****1234', 'PayPal - joan@example.com'];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private conexionService: ConexionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -31,22 +40,63 @@ export class UserProfileComponent {
       confirmPassword: [''],
       paymentMethod: ['Visa ****1234']
     }, { validators: this.passwordsMatchValidator });
+
+    // Formulario de cambio de contraseña
+    this.passwordForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmNewPassword: ['', Validators.required]
+    }, { validators: this.newPasswordsMatchValidator });
   }
 
+  // Validador para el formulario principal
   passwordsMatchValidator(form: FormGroup) {
     const pass = form.get('password')?.value;
     const confirm = form.get('confirmPassword')?.value;
     return pass === confirm ? null : { mismatch: true };
   }
 
-  onSubmit() { 
+  // Validador para el formulario de cambio de contraseña
+  newPasswordsMatchValidator(form: FormGroup) {
+    const newPassword = form.get('newPassword')?.value;
+    const confirm = form.get('confirmNewPassword')?.value;
+    return newPassword === confirm ? null : { mismatch: true };
+  }
+
+  onSubmit() {
     if (this.profileForm.valid) {
-      console.log('Perfil actualitzat:', this.profileForm.value);
+      console.log('Perfil actualizado:', this.profileForm.value);
       this.showEditForm = false;
     } else {
       this.profileForm.markAllAsTouched();
     }
   }
 
-  get f() { return this.profileForm.controls; }
+  onPasswordSubmit() {
+    this.submittedPassword = true;
+    if (this.passwordForm.invalid) return;
+
+    const { currentPassword, newPassword } = this.passwordForm.value;
+
+    this.conexionService.updatePassword({ currentPassword, newPassword }).subscribe({
+      next: () => {
+        alert('Contraseña actualizada correctamente');
+        this.showPasswordForm = false;
+        this.passwordForm.reset();
+        this.submittedPassword = false;
+      },
+      error: (err) => {
+        if (err.status === 401) {
+          this.passwordForm.setErrors({ wrongPassword: true });
+        } else {
+          alert('Error al actualizar contraseña');
+        }
+      }
+    });
+  }
+
+
+  get f() {
+    return this.profileForm.controls;
+  }
 }

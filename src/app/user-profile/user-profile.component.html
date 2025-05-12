@@ -118,9 +118,56 @@
       <hr />
 
       <!-- Sección de configuración de cuenta y seguridad -->
-      <div class="profile-section">
-          <h3>Configuración de cuenta y seguridad</h3>
-          <p>Cambia tu contraseña, cierra sesión en otros dispositivos, etc.</p>
-      </div>
+    <div class="profile-section">
+        <h3>Configuración de cuenta y seguridad</h3>
+        <p>Cambia tu contraseña, cierra sesión en otros dispositivos, etc.</p>
+
+        <!-- Botones de acción -->
+        <div class="form-actions">
+            <button (click)="showPasswordForm = !showPasswordForm">
+            {{ showPasswordForm ? 'Cancelar' : 'Actualizar contraseña' }}
+            </button>
+            <button [routerLink]="['/']">Cerrar sesión</button>
+         </div>
+
+        <!-- Formulario para actualizar contraseña -->
+        @if (showPasswordForm) {
+            <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()" class="vertical-form">
+            <!-- Contraseña actual -->
+            <div class="form-group">
+                <label for="currentPassword">Contraseña actual</label>
+                <input id="currentPassword" type="password" formControlName="currentPassword" />
+                @if (submittedPassword && passwordForm.controls['currentPassword'].invalid) {
+                <div class="error"><small>Campo requerido</small></div>
+                }
+                @if (passwordForm.errors?.['wrongPassword']) {
+                <div class="error"><small>Contraseña actual incorrecta</small></div>
+                }
+            </div>
+
+            <!-- Nueva contraseña -->
+            <div class="form-group">
+                <label for="newPassword">Nueva contraseña</label>
+                <input id="newPassword" type="password" formControlName="newPassword" />
+                @if (submittedPassword && passwordForm.controls['newPassword'].invalid) {
+                <div class="error"><small>Campo requerido</small></div>
+                }
+            </div>
+
+            <!-- Confirmar nueva contraseña -->
+            <div class="form-group">
+                <label for="confirmNewPassword">Repetir nueva contraseña</label>
+                <input id="confirmNewPassword" type="password" formControlName="confirmNewPassword" />
+                @if (submittedPassword && passwordForm.errors?.['mismatch']) {
+                <div class="error"><small>Las contraseñas no coinciden</small></div>
+                }
+            </div>
+
+            <!-- Botón de enviar -->
+            <button type="submit">Actualizar contraseña</button>
+            </form>
+        }
+    </div>
+
   </div>
 </div>
