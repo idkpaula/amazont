@@ -16,4 +16,9 @@ export class ConexionService {
     return this.http.get('http://localhost:8000/api/prueba');
   }
 
+  // Método para enviar los datos del registro a la base de datos
+  registerUsuario(data: any): Observable<any> {
+    return this.http.post('http://localhost:8000/api/register', data);
+  }
+
 }
