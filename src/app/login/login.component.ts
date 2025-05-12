@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { ConexionService } from '../services/conexion.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   submitted = false;
   showPassword = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private conexionService: ConexionService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -35,14 +36,21 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value;
 
-    // Lógica de autenticación simulada
-    const isValidUser = email === 'test@correo.com' && password === '123456';
-
-    if (isValidUser) {
-      console.log('Login exitoso');
-      this.router.navigate(['/']);
-    } else {
-      alert('Credenciales incorrectas');
-    }
+    this.conexionService.loginUsuario({ email, password }).subscribe({
+      next: (res) => {
+        console.log('Login exitoso', res);
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        if (err.status === 401) {
+          alert('Credenciales incorrectas');
+        } else {
+          alert('Error en el servidor');
+        }
+        console.error(err);
+      }
+    });
   }
+
 }

@@ -21,4 +21,9 @@ export class ConexionService {
     return this.http.post('http://localhost:8000/api/register', data);
   }
 
+  loginUsuario(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, data);
+  }
+
+
 }
