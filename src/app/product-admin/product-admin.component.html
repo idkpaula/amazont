@@ -172,5 +172,15 @@
         <ng-template #noTop><span>No hay datos aún.</span></ng-template>
       </div>
     </section>
+
+    <div class="mt-10 flex flex-col items-center gap-4">
+      <button
+        (click)="logout()"
+        class="submit-button"
+        aria-label="Cerrar sesión">
+        Cerrar Sesión
+      </button>
+    </div>
+
   </section>
 </main>

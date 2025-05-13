@@ -2,23 +2,29 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../../interfaces/product';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ConexionService } from '../services/conexion.service'; 
 
 @Component({
-  selector: 'app-product-admin',
-  standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './product-admin.component.html',
-  styleUrls: ['./product-admin.component.css']
+selector: 'app-product-admin',
+standalone: true,
+imports: [CommonModule, RouterModule, FormsModule],
+templateUrl: './product-admin.component.html',
+styleUrls: ['./product-admin.component.css']
 })
+
 export class ProductAdminComponent {
   products: Product[] = [];
   form: Partial<Product> = {};
   editing: boolean = false;
   @ViewChild('formElement') formElement!: ElementRef;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private conexionService: ConexionService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.productService.getProducts().subscribe((data) => (this.products = data));
@@ -29,13 +35,13 @@ export class ProductAdminComponent {
       this.productService.updateProduct(this.form as Product);
     } else {
       const newProduct: Product = {
-        id: Date.now(),
-        title: this.form.title ?? '',
-        description: this.form.description ?? '',
-        price: this.form.price ?? 0,
-        image: this.form.image ?? '',
-        stock: this.form.stock ?? 0,
-        sales: 0
+      id: Date.now(),
+      title: this.form.title ?? '',
+      description: this.form.description ?? '',
+      price: this.form.price ?? 0,
+      image: this.form.image ?? '',
+      stock: this.form.stock ?? 0,
+      sales: 0
       };
       this.productService.addProduct(newProduct);
     }
@@ -45,13 +51,12 @@ export class ProductAdminComponent {
   edit(product: Product) {
     this.form = { ...product };
     this.editing = true;
-
+    
     // Scroll suave hacia el formulario
     setTimeout(() => {
       this.formElement?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
   }
-
 
   resetForm() {
     this.form = {};
@@ -83,17 +88,20 @@ export class ProductAdminComponent {
 
   get topProduct(): Product | null {
     return this.products.reduce((top: Product | null, p: Product) =>
-      !top || (p.sales ?? 0) > (top.sales ?? 0) ? p : top, null);
+    !top || (p.sales ?? 0) > (top.sales ?? 0) ? p : top, null);
   }
 
   // Función trackByProductId para optimizar el *ngFor
   trackByProductId(index: number, product: Product): number {
-    return product.id; // Retorna el id del producto para hacer el seguimiento
+    return product.id;
   }
 
   deleteProduct(id: number) {
     this.productService.deleteProduct(id);
   }
 
-
+  logout() {
+    this.conexionService.logoutUsuario();
+    this.router.navigate(['/login']); 
+  }
 }
