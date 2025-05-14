@@ -44,7 +44,8 @@ export class ConexionService {
 
   // Ejemplo de cómo hacer una solicitud protegida
   getUserProfile(): Observable<any> {
-    const token = this.getAuthToken();
+    const token = localStorage.getItem('token');
+    console.log('Token:', token);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/user`, { headers });
   }
@@ -71,6 +72,16 @@ export class ConexionService {
     });
 
     return this.http.post(`${this.apiUrl}/product/Create`, data, { headers });
+  }
+
+  obtenerMisProductos(userId: number): Observable<any[]> {
+    const token = this.getAuthToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}/product/My/${userId}`, { headers });
   }
 
   actualizarProducto(id: string, producto: any): Observable<any> {

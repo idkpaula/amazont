@@ -27,8 +27,22 @@ export class ProductAdminComponent {
   ) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
+    this.conexionService.getUserProfile().subscribe({
+      next: (user) => {
+        const userId = user.id;
+
+        this.conexionService.obtenerMisProductos(userId).subscribe({
+          next: (productos) => {
+            this.products = productos;
+          },
+          error: (err) => {
+            console.error('Error al obtener productos del vendedor:', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('No se pudo obtener el perfil del usuario:', err);
+      }
     });
   }
 
