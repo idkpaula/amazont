@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,15 @@ export class ConexionService {
     return this.http.post(`${this.apiUrl}/user/Create`, data);
   }
 
-  // Método para login
   loginUsuario(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user/Login`, data);
+    return this.http.post(`${this.apiUrl}/user/Login`, data).pipe(
+      tap((response: any) => {
+        // Guardar el token en localStorage
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
+      })
+    );
   }
 
   logoutUsuario(): void {
@@ -55,4 +61,25 @@ export class ConexionService {
     return this.http.delete(`${this.apiUrl}/user/Delete/${id}`, { headers });
   }
 
+  // Crear un nuevo producto
+  crearProducto(data: any): Observable<any> {
+    const token = this.getAuthToken();
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` }) 
+    });
+
+    return this.http.post(`${this.apiUrl}/product/Create`, data, { headers });
+  }
+
+  actualizarProducto(id: string, producto: any): Observable<any> {
+    const url = `${this.apiUrl}/product/Modify/${id}`;
+    return this.http.put<any>(url, producto);
+  }
+
+  eliminarProducto(id: string): Observable<any> {
+    const url = `${this.apiUrl}/product/Delete/${id}`;
+    return this.http.delete<any>(url);
+  }
 }

@@ -9,23 +9,28 @@ export class ProductService {
   private productos = new BehaviorSubject<Product[]>([
     {
       id: 1,
-      title: 'Producto de ejemplo',
-      description: 'Descripción de ejemplo',
-      price: 100,
-      image: 'https://via.placeholder.com/150',
-      stock: 20,
-      sales: 10
+      nombre: 'Producto de ejemplo',
+      descripcion: 'Descripción de ejemplo',
+      precio: 100,
+      imagen: 'https://via.placeholder.com/150',
+      cantidad: 20,
+      sales: 10,
+      cat_id: 1,
+      oferta: false
     },
     {
       id: 2,
-      title: 'Otro producto',
-      description: 'Otro producto de prueba',
-      price: 200,
-      image: 'https://via.placeholder.com/200',
-      stock: 15,
-      sales: 5
+      nombre: 'Otro producto',
+      descripcion: 'Otro producto de prueba',
+      precio: 200,
+      imagen: 'https://via.placeholder.com/200',
+      cantidad: 15,
+      sales: 5,
+      cat_id: 2,
+      oferta: true
     }
   ]);
+
 
   getProducts(): Observable<Product[]> {
     return this.productos.asObservable();
@@ -52,6 +57,4 @@ export class ProductService {
     const updated = this.productos.getValue().filter(p => p.id !== id);
     this.productos.next(updated);
   }
-
 }
- 

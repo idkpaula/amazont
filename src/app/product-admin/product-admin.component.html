@@ -8,16 +8,16 @@
 
   <!-- Formulario para añadir o editar productos -->
   <section aria-label="Formulario para añadir o editar productos" class="form-container">
-    <form #formElement (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
+    <form (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
 
-      <!-- Campo: Título -->
+      <!-- Campo: Nombre -->
       <div class="form-group">
-        <label for="title">Título</label>
+        <label for="nombre">Nombre</label>
         <input 
-          id="title"
-          [(ngModel)]="form.title"
-          name="title"
-          placeholder="Título"
+          id="nombre"
+          [(ngModel)]="form.nombre"
+          name="nombre"
+          placeholder="Nombre del producto"
           required
           aria-required="true"
           class="input-field"
@@ -26,11 +26,11 @@
 
       <!-- Campo: Descripción -->
       <div class="form-group">
-        <label for="description">Descripción</label>
+        <label for="descripcion">Descripción</label>
         <input 
-          id="description"
-          [(ngModel)]="form.description"
-          name="description"
+          id="descripcion"
+          [(ngModel)]="form.descripcion"
+          name="descripcion"
           placeholder="Descripción"
           required
           aria-required="true"
@@ -40,12 +40,12 @@
 
       <!-- Campo: Precio -->
       <div class="form-group">
-        <label for="price">Precio</label>
+        <label for="precio">Precio</label>
         <input 
-          id="price"
+          id="precio"
           type="number"
-          [(ngModel)]="form.price"
-          name="price"
+          [(ngModel)]="form.precio"
+          name="precio"
           placeholder="Precio"
           required
           aria-required="true"
@@ -53,33 +53,79 @@
         />
       </div>
 
-      <!-- Campo: Stock -->
+      <!-- Campo: Precio Anterior (opcional) -->
       <div class="form-group">
-        <label for="stock">Stock</label>
+        <label for="precioAnterior">Precio Anterior (opcional)</label>
         <input 
-          id="stock"
+          id="precioAnterior"
           type="number"
-          [(ngModel)]="form.stock"
-          name="stock"
+          [(ngModel)]="form.precioAnterior"
+          name="precioAnterior"
+          placeholder="Precio anterior"
+          class="input-field"
+        />
+      </div>
+
+      <!-- Campo: Oferta (Sí / No) -->
+      <div class="form-group">
+        <label for="oferta">¿En oferta?</label>
+        <select 
+          id="oferta"
+          [(ngModel)]="form.oferta"
+          name="oferta"
+          required
+          aria-required="true"
+          class="input-field"
+        >
+          <option [ngValue]="true">Sí</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </div>
+
+      <!-- Campo: Cantidad -->
+      <div class="form-group">
+        <label for="cantidad">Cantidad</label>
+        <input 
+          id="cantidad"
+          type="number"
+          [(ngModel)]="form.cantidad"
+          name="cantidad"
           placeholder="Cantidad disponible"
           required
           aria-required="true"
           class="input-field"
         />
       </div>
-      
-      <!-- Campo: URL de Imagen -->
+
+      <!-- Campo: Categoría (cat_id) -->
       <div class="form-group">
-        <label for="image">URL de Imagen</label>
+        <label for="cat_id">ID de Categoría</label>
         <input 
-          id="image"
-          [(ngModel)]="form.image"
-          name="image"
-          placeholder="URL de Imagen"
-          aria-describedby="imageDesc"
+          id="cat_id"
+          type="number"
+          [(ngModel)]="form.cat_id"
+          name="cat_id"
+          placeholder="Ej: 1"
+          required
+          aria-required="true"
           class="input-field"
         />
-        <small id="imageDesc" class="text-white">Debe ser una URL válida con formato de imagen.</small>
+      </div>
+
+      <!-- Campo: URL de Imagen -->
+      <div class="form-group">
+        <label for="imagen">URL de Imagen</label>
+        <input 
+          id="imagen"
+          [(ngModel)]="form.imagen"
+          name="imagen"
+          placeholder="https://..."
+          required
+          aria-required="true"
+          aria-describedby="imagenDesc"
+          class="input-field"
+        />
+        <small id="imagenDesc" class="text-white">Debe ser una URL válida con formato de imagen.</small>
       </div>
 
       <!-- Botón enviar -->
@@ -103,20 +149,24 @@
     <div *ngIf="products.length > 0; else noProducts">
       <!-- Bucle ngFor para iterar sobre los productos -->
       <ng-container *ngFor="let product of products; trackBy: trackByProductId">
-        <article class="product-item bg-white p-4 rounded shadow mb-4" aria-labelledby="product-title">
-          <h3 id="product-title" class="text-md font-bold text-purple-600">{{ product.title }}</h3>
-          <img [src]="product.image" alt="Imagen del producto" width="100" class="rounded" />
-          <p class="text-gray-700">{{ product.description }}</p>
-          <p><strong>Precio:</strong> ${{ product.price }}</p>
-          <p><strong>Stock:</strong> {{ product.stock }}</p>
+        <article class="product-item bg-white p-4 rounded shadow mb-4" [attr.aria-labelledby]="'product-title-' + product.id">
+          <h3 [id]="'product-title-' + product.id" class="text-md font-bold text-purple-600">{{ product.nombre }}</h3>
+          <img [src]="product.imagen" [alt]="'Imagen de ' + product.nombre" width="100" class="rounded" />
+          <p class="text-gray-700">{{ product.descripcion }}</p>
+          <p><strong>Categoría:</strong> {{ product.cat_id }}</p>
+          <p><strong>Precio:</strong> {{ product.precio }} €</p>
+          <p><strong>Stock:</strong> {{ product.cantidad }}</p>
           <p><strong>Ventas:</strong> {{ product.sales }}</p>
-          <p><strong>Ingresos:</strong> ${{ product.price * product.sales }}</p>
+          <p *ngIf="product.precio != null && product.sales != null">
+            <strong>Ingresos:</strong> ${{ product.precio * product.sales }}
+          </p>
+
+
           <p *ngIf="product.id === topProduct?.id" class="text-green-600 font-semibold">🔥 Producto más vendido</p>
 
           <button 
             (click)="edit(product)" 
             aria-label="Editar producto"
-            aria-expanded="false"
             class="edit-button mt-2 bg-orange-500 text-white px-3 py-1 rounded"
           >
             Editar
@@ -158,16 +208,16 @@
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm md:text-base">
         <p><strong>Total de productos:</strong> {{ products.length }}</p>
         <p><strong>Total ventas:</strong> {{ totalVentas || 0 }}</p>
-        <p><strong>Ingresos totales:</strong> ${{ totalIngresos || 0 }}</p>
+        <p><strong>Ingresos totales:</strong> {{ totalIngresos || 0 }} €</p>
         <p><strong>Stock total:</strong> {{ totalStock || 0 }}</p>
-        <p><strong>Precio promedio:</strong> ${{ averagePrice || 0 }}</p>
+        <p><strong>Precio promedio:</strong> {{ averagePrice || 0 }} €</p>
         <p><strong>Ventas promedio:</strong> {{ averageSales || 0 }}</p>
       </div>
 
       <div class="mt-4">
         <h4 class="font-semibold">Producto más vendido:</h4>
         <p *ngIf="topProduct; else noTop">
-          {{ topProduct.title }} con {{ topProduct.sales }} ventas
+          {{ topProduct.nombre }} con {{ topProduct.sales }} ventas
         </p>
         <ng-template #noTop><span>No hay datos aún.</span></ng-template>
       </div>

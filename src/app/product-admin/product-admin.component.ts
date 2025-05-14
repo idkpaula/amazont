@@ -7,11 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { ConexionService } from '../services/conexion.service'; 
 
 @Component({
-selector: 'app-product-admin',
-standalone: true,
-imports: [CommonModule, RouterModule, FormsModule],
-templateUrl: './product-admin.component.html',
-styleUrls: ['./product-admin.component.css']
+  selector: 'app-product-admin',
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule],
+  templateUrl: './product-admin.component.html',
+  styleUrls: ['./product-admin.component.css']
 })
 
 export class ProductAdminComponent {
@@ -27,35 +27,64 @@ export class ProductAdminComponent {
   ) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((data) => (this.products = data));
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
+    });
   }
 
   saveProduct() {
-    if (this.editing && this.form.id !== undefined) {
-      this.productService.updateProduct(this.form as Product);
+    if (this.editing) {
+      this.updateProduct();
     } else {
-      const newProduct: Product = {
-      id: Date.now(),
-      title: this.form.title ?? '',
-      description: this.form.description ?? '',
-      price: this.form.price ?? 0,
-      image: this.form.image ?? '',
-      stock: this.form.stock ?? 0,
-      sales: 0
-      };
-      this.productService.addProduct(newProduct);
+      this.createProduct();
     }
-    this.resetForm();
+  }
+
+  createProduct() {
+    console.log('Formulario enviado:', this.form);
+
+    this.conexionService.crearProducto(this.form).subscribe({
+      next: (res) => {
+        console.log('Producto creado con éxito:', res);
+        this.products.push(res); 
+        this.resetForm();
+      },
+      error: (err) => {
+        console.error('Error al crear el producto:', err);
+        console.error('Detalles del backend:', err.error?.errors);
+      }
+    });
+  }
+
+  updateProduct() {
+    if (!this.form.id) {
+      console.error('No se puede actualizar un producto sin ID');
+      return;
+    }
+
+    this.conexionService.actualizarProducto(this.form.id.toString(), this.form).subscribe({
+      next: (res) => {
+        console.log('Producto actualizado con éxito:', res);
+        const index = this.products.findIndex(p => p.id === this.form.id);
+        if (index !== -1) {
+          this.products[index] = res;
+        }
+        this.resetForm();
+      },
+      error: (err) => {
+        console.error('Error al actualizar el producto:', err);
+        console.error('Detalles del backend:', err.error?.errors);
+      }
+    });
   }
 
   edit(product: Product) {
     this.form = { ...product };
     this.editing = true;
-    
-    // Scroll suave hacia el formulario
-    setTimeout(() => {
-      this.formElement?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+  }
+
+  deleteProduct(id: number) {
+    this.productService.deleteProduct(id);
   }
 
   resetForm() {
@@ -63,27 +92,29 @@ export class ProductAdminComponent {
     this.editing = false;
   }
 
-  // Estadísticas generales
-  get totalVentas(): number {
+  logout() {
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
+  }
+
+  get totalVentas() {
     return this.products.reduce((sum, p) => sum + (p.sales ?? 0), 0);
   }
 
-  get totalIngresos(): number {
-    return this.products.reduce((sum, p) => sum + ((p.price ?? 0) * (p.sales ?? 0)), 0);
+  get totalIngresos() {
+    return this.products.reduce((sum, p) => sum + ((p.precio ?? 0) * (p.sales ?? 0)), 0);
   }
 
-  get totalStock(): number {
-    return this.products.reduce((acc, p) => acc + (p.stock ?? 0), 0);
+  get totalStock() {
+    return this.products.reduce((acc, p) => acc + (p.cantidad ?? 0), 0);
   }
 
-  get averagePrice(): string {
-    const total = this.products.reduce((acc, p) => acc + (p.price ?? 0), 0);
-    return this.products.length ? (total / this.products.length).toFixed(2) : '0';
+  get averagePrice() {
+    return this.products.length ? this.totalIngresos / this.products.length : 0;
   }
 
-  get averageSales(): string {
-    const total = this.products.reduce((acc, p) => acc + (p.sales ?? 0), 0);
-    return this.products.length ? (total / this.products.length).toFixed(1) : '0';
+  get averageSales() {
+    return this.products.length ? this.totalVentas / this.products.length : 0;
   }
 
   get topProduct(): Product | null {
@@ -91,17 +122,7 @@ export class ProductAdminComponent {
     !top || (p.sales ?? 0) > (top.sales ?? 0) ? p : top, null);
   }
 
-  // Función trackByProductId para optimizar el *ngFor
-  trackByProductId(index: number, product: Product): number {
+  trackByProductId(index: number, product: Product) {
     return product.id;
-  }
-
-  deleteProduct(id: number) {
-    this.productService.deleteProduct(id);
-  }
-
-  logout() {
-    this.conexionService.logoutUsuario();
-    this.router.navigate(['/login']); 
   }
 }
