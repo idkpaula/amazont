@@ -44,7 +44,7 @@ export class ProductAdminComponent {
         console.error('No se pudo obtener el perfil del usuario:', err);
       }
     });
-  }
+  } 
 
   saveProduct() {
     if (this.editing) {
@@ -98,8 +98,17 @@ export class ProductAdminComponent {
   }
 
   deleteProduct(id: number) {
-    this.productService.deleteProduct(id);
+    this.conexionService.eliminarProducto(id.toString()).subscribe({
+      next: () => {
+        this.products = this.products.filter(product => product.id !== id);
+        console.log('Producto eliminado con éxito');
+      },
+      error: (err) => {
+        console.error('Error al eliminar el producto:', err);
+      }
+    });
   }
+
 
   resetForm() {
     this.form = {};
