@@ -58,7 +58,19 @@ export class UserProfileComponent {
             : ''
         });
 
-        this.orderHistory = user.orders ?? [];
+        // Obtener historial de pedidos mediante método específico
+        this.conexionService.getOrderHistory(this.userId).subscribe({
+          next: (orders) => {
+            console.log('orders recibidos:', orders);
+            this.orderHistory = Array.isArray(orders) ? orders : [];
+          },
+          error: (err) => {
+            console.error('Error al obtener historial de pedidos', err);
+            this.orderHistory = [];
+          }
+        });
+
+
         this.paymentMethods = user.numero_tarjeta
           ? [`**** **** **** ${user.numero_tarjeta.slice(-4)}`]
           : [];
@@ -122,7 +134,7 @@ export class UserProfileComponent {
           alert('Hubo un error al eliminar la cuenta.');
         }
       });
-    } 
+    }
   }
 
   onLogout() {

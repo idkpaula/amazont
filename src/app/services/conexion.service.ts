@@ -50,6 +50,16 @@ export class ConexionService {
     return this.http.get(`${this.apiUrl}/user`, { headers });
   }
 
+  getOrderHistory(userId: number): Observable<any[]> {
+    const token = this.getAuthToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}/shop/Buy/${userId}`, { headers });
+  }
+
   updateUser(id: number, data: any): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -74,6 +84,7 @@ export class ConexionService {
     return this.http.post(`${this.apiUrl}/product/Create`, data, { headers });
   }
 
+  // Listado de productos
   obtenerMisProductos(userId: number): Observable<any[]> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders({
