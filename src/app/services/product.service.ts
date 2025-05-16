@@ -25,7 +25,7 @@ export class ProductService {
       precio: 200,
       imagen: 'https://via.placeholder.com/200',
       cantidad: 15,
-      sales: 5,
+      sales: 5, 
       cat_id: 2,
       oferta: true
     }

@@ -4,7 +4,6 @@ import { Product } from '../../interfaces/product';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ConexionService } from '../services/conexion.service'; 
 
 @Component({
   selector: 'app-product-admin',
@@ -13,7 +12,6 @@ import { ConexionService } from '../services/conexion.service';
   templateUrl: './product-admin.component.html',
   styleUrls: ['./product-admin.component.css']
 })
-
 export class ProductAdminComponent {
   products: Product[] = [];
   form: Partial<Product> = {};
@@ -22,29 +20,19 @@ export class ProductAdminComponent {
 
   constructor(
     private productService: ProductService,
-    private conexionService: ConexionService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.conexionService.getUserProfile().subscribe({
-      next: (user) => {
-        const userId = user.id;
-
-        this.conexionService.obtenerMisProductos(userId).subscribe({
-          next: (productos) => {
-            this.products = productos;
-          },
-          error: (err) => {
-            console.error('Error al obtener productos del vendedor:', err);
-          }
-        });
+    this.productService.getProducts().subscribe({
+      next: (productos) => {
+        this.products = productos;
       },
       error: (err) => {
-        console.error('No se pudo obtener el perfil del usuario:', err);
+        console.error('Error al obtener productos:', err);
       }
     });
-  } 
+  }
 
   saveProduct() {
     if (this.editing) {
@@ -55,19 +43,14 @@ export class ProductAdminComponent {
   }
 
   createProduct() {
-    console.log('Formulario enviado:', this.form);
+    const newProduct: Product = {
+      ...this.form,
+      id: this.generateNewId(),
+      sales: 0,
+    } as Product;
 
-    this.conexionService.crearProducto(this.form).subscribe({
-      next: (res) => {
-        console.log('Producto creado con éxito:', res);
-        this.products.push(res); 
-        this.resetForm();
-      },
-      error: (err) => {
-        console.error('Error al crear el producto:', err);
-        console.error('Detalles del backend:', err.error?.errors);
-      }
-    });
+    this.productService.addProduct(newProduct);
+    this.resetForm();
   }
 
   updateProduct() {
@@ -76,39 +59,19 @@ export class ProductAdminComponent {
       return;
     }
 
-    this.conexionService.actualizarProducto(this.form.id.toString(), this.form).subscribe({
-      next: (res) => {
-        console.log('Producto actualizado con éxito:', res);
-        const index = this.products.findIndex(p => p.id === this.form.id);
-        if (index !== -1) {
-          this.products[index] = res;
-        }
-        this.resetForm();
-      },
-      error: (err) => {
-        console.error('Error al actualizar el producto:', err);
-        console.error('Detalles del backend:', err.error?.errors);
-      }
-    });
+    const updatedProduct = this.form as Product;
+    this.productService.updateProduct(updatedProduct);
+    this.resetForm();
+  }
+
+  deleteProduct(id: number) {
+    this.productService.deleteProduct(id);
   }
 
   edit(product: Product) {
     this.form = { ...product };
     this.editing = true;
   }
-
-  deleteProduct(id: number) {
-    this.conexionService.eliminarProducto(id.toString()).subscribe({
-      next: () => {
-        this.products = this.products.filter(product => product.id !== id);
-        console.log('Producto eliminado con éxito');
-      },
-      error: (err) => {
-        console.error('Error al eliminar el producto:', err);
-      }
-    });
-  }
-
 
   resetForm() {
     this.form = {};
@@ -142,10 +105,15 @@ export class ProductAdminComponent {
 
   get topProduct(): Product | null {
     return this.products.reduce((top: Product | null, p: Product) =>
-    !top || (p.sales ?? 0) > (top.sales ?? 0) ? p : top, null);
+      !top || (p.sales ?? 0) > (top.sales ?? 0) ? p : top, null);
   }
 
   trackByProductId(index: number, product: Product) {
     return product.id;
+  }
+
+  private generateNewId(): number {
+    const ids = this.products.map(p => p.id || 0);
+    return ids.length ? Math.max(...ids) + 1 : 1;
   }
 }
