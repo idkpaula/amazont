@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ProductService } from '../services/product.service';
+import { ConexionService } from '../services/conexion.service';
 import { Product } from '../../interfaces/product';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -16,23 +16,44 @@ export class ProductAdminComponent {
   products: Product[] = [];
   form: Partial<Product> = {};
   editing: boolean = false;
+  userId: number = 1; 
   @ViewChild('formElement') formElement!: ElementRef;
 
   constructor(
-    private productService: ProductService,
+    private conexionService: ConexionService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe({
-      next: (productos) => {
-        this.products = productos;
+    this.conexionService.getUserProfile().subscribe({
+      next: (profile) => {
+        console.log('Perfil obtenido:', profile);
+        this.userId = profile.user.id;
+        this.cargarProductos();
+      },
+      error: (err) => {
+        console.error('Error al obtener el perfil del usuario:', err);
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
+  cargarProductos() {
+    this.conexionService.obtenerMisProductos(this.userId).subscribe({
+      next: (res: any) => {
+        if (res && Array.isArray(res.categorias)) {
+          this.products = res.categorias.flatMap((cat: any) => cat.productos || []);
+        } else {
+          console.warn('La respuesta no contiene categorias');
+          this.products = [];
+        }
       },
       error: (err) => {
         console.error('Error al obtener productos:', err);
       }
     });
   }
+
 
   saveProduct() {
     if (this.editing) {
@@ -43,14 +64,21 @@ export class ProductAdminComponent {
   }
 
   createProduct() {
-    const newProduct: Product = {
+    const nuevoProducto = {
       ...this.form,
-      id: this.generateNewId(),
-      sales: 0,
-    } as Product;
+      user_id: this.userId,
+      sales: 0
+    };
 
-    this.productService.addProduct(newProduct);
-    this.resetForm();
+    this.conexionService.crearProducto(nuevoProducto).subscribe({
+      next: () => {
+        this.cargarProductos();
+        this.resetForm();
+      },
+      error: (err) => {
+        console.error('Error al crear producto:', err);
+      }
+    });
   }
 
   updateProduct() {
@@ -59,13 +87,22 @@ export class ProductAdminComponent {
       return;
     }
 
-    const updatedProduct = this.form as Product;
-    this.productService.updateProduct(updatedProduct);
-    this.resetForm();
+    this.conexionService.actualizarProducto(this.form.id.toString(), this.form).subscribe({
+      next: () => {
+        this.cargarProductos();
+        this.resetForm();
+      },
+      error: (err) => {
+        console.error('Error al actualizar producto:', err);
+      }
+    });
   }
 
   deleteProduct(id: number) {
-    this.productService.deleteProduct(id);
+    this.conexionService.eliminarProducto(id.toString()).subscribe({
+      next: () => this.cargarProductos(),
+      error: (err) => console.error('Error al eliminar producto:', err)
+    });
   }
 
   edit(product: Product) {
@@ -79,20 +116,26 @@ export class ProductAdminComponent {
   }
 
   logout() {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 
   get totalVentas() {
-    return this.products.reduce((sum, p) => sum + (p.sales ?? 0), 0);
+    return Array.isArray(this.products)
+      ? this.products.reduce((sum, p) => sum + (p.sales ?? 0), 0)
+      : 0;
   }
 
   get totalIngresos() {
-    return this.products.reduce((sum, p) => sum + ((p.precio ?? 0) * (p.sales ?? 0)), 0);
+    return Array.isArray(this.products)
+      ? this.products.reduce((sum, p) => sum + ((p.precio ?? 0) * (p.sales ?? 0)), 0)
+      : 0;
   }
 
   get totalStock() {
-    return this.products.reduce((acc, p) => acc + (p.cantidad ?? 0), 0);
+    return Array.isArray(this.products)
+      ? this.products.reduce((acc, p) => acc + (p.cantidad ?? 0), 0)
+      : 0;
   }
 
   get averagePrice() {
@@ -110,10 +153,5 @@ export class ProductAdminComponent {
 
   trackByProductId(index: number, product: Product) {
     return product.id;
-  }
-
-  private generateNewId(): number {
-    const ids = this.products.map(p => p.id || 0);
-    return ids.length ? Math.max(...ids) + 1 : 1;
   }
 }
