@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { ConexionService } from '../services/conexion.service';
 import { Product } from '../../interfaces/product';
 import { CommonModule } from '@angular/common';
@@ -18,11 +18,17 @@ export class ProductAdminComponent {
   editing: boolean = false;
   userId: number = 1; 
   @ViewChild('formElement') formElement!: ElementRef;
+  @ViewChild('successMsg', { static: false }) successMsgElement!: ElementRef;
+
+  successMessage: string = '';  // <-- Mensaje de éxito
 
   constructor(
     private conexionService: ConexionService,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
+
 
   ngOnInit() {
     this.conexionService.getUserProfile().subscribe({
@@ -36,6 +42,30 @@ export class ProductAdminComponent {
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  // Método para mostrar mensaje de éxito por 3 segundos
+  showSuccessMessage(message: string) {
+    this.successMessage = message;
+
+    // Forzamos detección de cambios para que Angular actualice el DOM
+    this.cd.detectChanges();
+
+    // Ejecutamos el scroll dentro de NgZone para asegurarnos que detecta el cambio
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        if (this.successMsgElement) {
+          this.successMsgElement.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50); // un pequeño delay para asegurar el render
+    });
+
+    // Limpia el mensaje después de 3 segundos
+    setTimeout(() => {
+      this.ngZone.run(() => {
+        this.successMessage = '';
+      });
+    }, 3000);
   }
 
   cargarProductos() {
@@ -53,7 +83,6 @@ export class ProductAdminComponent {
       }
     });
   }
-
 
   saveProduct() {
     if (this.editing) {
@@ -74,6 +103,7 @@ export class ProductAdminComponent {
       next: () => {
         this.cargarProductos();
         this.resetForm();
+        this.showSuccessMessage('Producto creado con éxito');
       },
       error: (err) => {
         console.error('Error al crear producto:', err);
@@ -91,6 +121,7 @@ export class ProductAdminComponent {
       next: () => {
         this.cargarProductos();
         this.resetForm();
+        this.showSuccessMessage('Producto actualizado con éxito');
       },
       error: (err) => {
         console.error('Error al actualizar producto:', err);
@@ -100,7 +131,10 @@ export class ProductAdminComponent {
 
   deleteProduct(id: number) {
     this.conexionService.eliminarProducto(id.toString()).subscribe({
-      next: () => this.cargarProductos(),
+      next: () => {
+        this.cargarProductos();
+        this.showSuccessMessage('Producto eliminado con éxito');
+      },
       error: (err) => console.error('Error al eliminar producto:', err)
     });
   }
@@ -108,7 +142,15 @@ export class ProductAdminComponent {
   edit(product: Product) {
     this.form = { ...product };
     this.editing = true;
+
+    // Hacemos scroll suave al formulario
+    setTimeout(() => {
+      if (this.formElement && this.formElement.nativeElement) {
+        this.formElement.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   }
+
 
   resetForm() {
     this.form = {};

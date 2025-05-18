@@ -8,7 +8,10 @@
 
   <!-- Formulario para añadir o editar productos -->
   <section aria-label="Formulario para añadir o editar productos" class="form-container">
-    <form (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
+    <div #successMsg *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+    <form #formElement (ngSubmit)="saveProduct()" #productForm="ngForm" class="space-y-4" aria-live="polite">
 
       <!-- Campo: Nombre -->
       <div class="form-group">
