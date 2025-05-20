@@ -108,6 +108,22 @@ button:hover {
   margin-top: 2rem;
 }
 
+.loader {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.5rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 1rem;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+input[type="number"].invalid {
+  border: 2px solid red;
+  background-color: #ffebee;
+}
+
 /* Responsividad */
 @media (max-width: 768px) {
   .cart-item {
@@ -154,7 +170,7 @@ button:hover {
   }
 
   .info p {
-    font-size: 0.9rem;
+    font-size: 0.9rem; 
   }
 
   input[type="number"] {

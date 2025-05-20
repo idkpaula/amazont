@@ -1,3 +1,9 @@
+<!-- Mensaje de carga -->
+<div *ngIf="loading" class="loader" aria-label="Cargando carrito">
+  <p>Cargando carrito...</p>
+</div>
+
+<!-- Contenedor principal del carrito -->
 <div class="cart-container" aria-label="Contenedor del carrito de compras">
   <!-- Comprobamos si hay artículos en el carrito -->
   @if (cartItems.length > 0) {
@@ -18,7 +24,15 @@
           <span id="quantity-description" class="visually-hidden">Selecciona la cantidad del producto</span>
           <br>
           <label for="quantity" aria-label="Cantidad">Cantidad:
-            <input id="quantity" type="number" [(ngModel)]="item.quantity" (change)="updateQty(item)" min="1" aria-describedby="quantity-description" />
+            <input 
+              id="quantity" 
+              type="number" 
+              [(ngModel)]="item.quantity" 
+              (change)="updateQty(item)" 
+              min="1" 
+              [class.invalid]="item.quantity < 1"
+              aria-describedby="quantity-description" 
+            />
           </label>
 
           <!-- Botón para eliminar el artículo -->
@@ -52,4 +66,3 @@
 
 <!-- Salida del router para renderizar vistas hijas -->
 <router-outlet></router-outlet>
- 
