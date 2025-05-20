@@ -26,7 +26,7 @@ html, body {
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   color: #fff;
   text-align: center;
-  margin-top: 1rem; /* Separación adicional desde el menú */
+  margin-top: 1rem;
 }
 
 /* Título */
@@ -54,8 +54,8 @@ input {
   padding: 1rem;
   margin-top: 0.5rem;
   border-radius: 10px;
-  border: 1px solid #ffffff;
-  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid #ffffff;
+  background: #ffffff;
   font-size: 1rem;
   color: #333;
   transition: all 0.3s ease;
@@ -63,16 +63,27 @@ input {
 
 input:focus {
   border-color: #ff6300;
-  background: #ffffff;
   outline: none;
+}
+
+/* Input con error visual */
+input.error {
+  border-color: #b00020;
+  background-color: #ffe5e5;
 }
 
 /* Mensaje de error */
 .error {
-  color: #f7cccc;
-  font-size: 0.85rem;
+  color: #b00020;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: bold;
   margin-top: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  border-left: 4px solid #b00020;
+  border-radius: 6px;
   text-align: left;
+  display: block;
 }
 
 /* Botón uniforme */

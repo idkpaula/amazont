@@ -55,8 +55,8 @@ select {
   padding: 1rem;
   margin-top: 0.5rem;
   border-radius: 10px;
-  border: 1px solid #ffffff;
-  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid #ffffff;
+  background: #ffffff;
   font-size: 1rem;
   color: #333;
   transition: all 0.3s ease;
@@ -65,16 +65,21 @@ select {
 input:focus,
 select:focus {
   border-color: #ff6300;
-  background: #ffffff;
   outline: none;
 }
 
 /* Mensaje de error */
 .error {
-  color:#f7cccc;
-  font-size: 0.85rem;
+  color: #b00020;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: bold;
   margin-top: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  border-left: 4px solid #b00020;
+  border-radius: 6px;
   text-align: left;
+  display: block;
 }
 
 /* Botón con estilo uniforme */
@@ -105,7 +110,6 @@ select:focus {
   border-radius: 15px;
   background-color: #212121;
   z-index: -1;
-  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   transition: all 250ms;
 }
 
@@ -135,7 +139,7 @@ select:focus {
 .checkbox-container {
   display: flex;
   align-items: center;
-  gap: 8px; /* Espacio entre checkbox y texto */
+  gap: 8px;
   margin-top: 1rem;
 }
 
@@ -144,7 +148,7 @@ select:focus {
   height: 18px;
   accent-color: #ff6300;
   cursor: pointer;
-  margin: 5mm 0 0 0; /* Mueve el checkbox 5mm hacia abajo */
+  margin: 5mm 0 0 0;
 }
 
 /* Alinear la etiqueta con el checkbox */
