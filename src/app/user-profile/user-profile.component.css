@@ -156,3 +156,40 @@
       width: 100%;
     }
   }
+
+@media (max-width: 600px) {
+  .main-container {
+    padding: 1rem;
+  }
+
+  .profile-container {
+    max-width: 100%;
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .profile-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .vertical-form .form-group input {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .form-actions button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

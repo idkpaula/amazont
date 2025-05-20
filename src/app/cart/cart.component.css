@@ -1,5 +1,5 @@
 .cart-container {
-  background: linear-gradient(to right, #a64ca6, #6f2dbd); /* Morado degradado */
+  background: linear-gradient(to right, #a64ca6, #6f2dbd);
   padding: 2rem;
   border-radius: 1rem;
   color: white;
@@ -8,9 +8,10 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Cada item se acomoda con flexbox, wrap para móviles */
 .cart-item {
   display: flex;
-  flex-wrap: wrap; /* Mejora en pantallas pequeñas */
+  flex-wrap: wrap;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
@@ -56,7 +57,7 @@ input[type="number"] {
 button {
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #ff6f61; /* Naranja suave */
+  background-color: #ff6f61;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -89,7 +90,7 @@ button:hover {
 
 .summary button {
   margin-top: 1rem;
-  background-color: #ff8000; 
+  background-color: #ff8000;
   padding: 0.7rem 1.5rem;
   font-size: 1.1rem;
   border-radius: 0.5rem;
@@ -105,4 +106,68 @@ button:hover {
   font-size: 1.2rem;
   text-align: center;
   margin-top: 2rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item img {
+    width: 80px;
+    height: 80px;
+  }
+
+  input[type="number"] {
+    width: 50px;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.6rem;
+  }
+
+  .summary {
+    text-align: center;
+  }
+
+  .summary button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .cart-item img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .info h3 {
+    font-size: 1.1rem;
+  }
+
+  .info p {
+    font-size: 0.9rem;
+  }
+
+  input[type="number"] {
+    width: 45px;
+    font-size: 0.9rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+
+  .summary p,
+  .summary h2 {
+    font-size: 1rem;
+  }
 }

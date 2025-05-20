@@ -139,3 +139,47 @@ input.error {
 .login-container a:hover {
   color: #fff8e0;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 1.5rem;
+    box-shadow: none;
+    border: 2px solid #fff;
+  }
+
+  .login-container h2 {
+    font-size: 1.75rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+
+  input {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .login-container h2 {
+    font-size: 1.5rem;
+  }
+
+  label {
+    font-size: 0.95rem;
+  }
+
+  input, button {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  a {
+    font-size: 0.85rem;
+  }
+}

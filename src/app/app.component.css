@@ -1,4 +1,4 @@
-/* Reset general para evitar inconsistencias entre navegadores */
+/* Reset general */
 * {
   margin: 0;
   padding: 0;
@@ -11,10 +11,10 @@ body {
   color: #333;
 }
 
-/* Estilo para el header */
+/* === HEADER PRINCIPAL === */
 header {
   width: 100%;
-  background-color: #333; /* Fondo oscuro */
+  background-color: #333;
   color: white;
 }
 
@@ -24,28 +24,29 @@ header {
   align-items: center;
   padding: 10px 20px;
   height: 65px;
+  flex-wrap: wrap;
 }
 
 .logo {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  font-size: 1.50rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #ff6200; /* Color principal del logo */
+  color: #ff6200;
   text-decoration: none;
   letter-spacing: -0.025em;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
 
 .logo:hover {
-  color: #ffa257; /* Color más oscuro para el hover */
-  transition: 0.4s;
+  color: #ffa257;
 }
 
+/* === BUSCADOR === */
 .search-container {
   display: flex;
   flex-grow: 1;
   max-width: 620px;
   height: 50px;
+  margin: 10px 0;
 }
 
 .search-input {
@@ -54,7 +55,6 @@ header {
   font-size: 15px;
   border: none;
   border-radius: 47px 0 0 47px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .search-button {
@@ -66,9 +66,11 @@ header {
   cursor: pointer;
 }
 
+/* === BOTONES DE NAVEGACIÓN === */
 .nav-buttons {
   display: flex;
   gap: 10px;
+  margin-left: auto;
 }
 
 .nav-button {
@@ -86,10 +88,6 @@ header {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.nav-button .img {
-  align-items: center;
-}
-
 .options-button {
   width: 40px;
   height: 40px;
@@ -98,7 +96,7 @@ header {
   align-items: center;
 }
 
-/* Estilos para el menú de usuario */
+/* === MENÚ DESPLEGABLE DE USUARIO === */
 .user-dropdown {
   position: absolute;
   background-color: #ffffff;
@@ -106,15 +104,14 @@ header {
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  display: none; /* Ocultamos el menú por defecto */
-  flex-direction: column; /* Los elementos estarán en columna */
+  display: none;
+  flex-direction: column;
 }
 
 .user-menu-container:hover .user-dropdown {
-  display: flex; /* Mostramos el menú al pasar el mouse */
+  display: flex;
 }
 
-/* Estilo para los enlaces del menú desplegable */
 .user-dropdown a {
   color: #333;
   text-decoration: none;
@@ -124,22 +121,24 @@ header {
 }
 
 .user-dropdown a:hover {
-  background-color: #f5f5f5; /* Color de fondo al pasar el mouse */
+  background-color: #f5f5f5;
 }
 
-/* Estilo para la segunda barra de navegación (navbar2) */
+/* === SEGUNDA NAVBAR === */
 .navbar2 {
-  background-color: #4e4e4e; /* Fondo gris oscuro para navbar2 */
+  background-color: #4e4e4e;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 35px;
+  flex-wrap: wrap;
 }
 
 .nav-buttons2 {
   display: flex;
   gap: 40px;
+  flex-wrap: wrap;
 }
 
 .nav-button2 {
@@ -154,9 +153,8 @@ header {
 }
 
 .nav-button2:hover {
-  transform: scale(1.1, 1.1);
-  transition: 0.4s;
-  color: #ff6300; /* Naranja para el hover en los botones de navbar2 */
+  transform: scale(1.1);
+  color: #ff6300;
 }
 
 .user-button2,
@@ -169,12 +167,10 @@ header {
 
 a {
   color: inherit;
-  /* Mantiene el color original */
   text-decoration: none;
-  /* Opcional: Elimina el subrayado */
 }
 
-/* Animación para un banner (si deseas agregar uno en el futuro) */
+/* === BANNER CON ANIMACIÓN === */
 .banner {
   background: linear-gradient(300deg, rgb(79, 12, 141), rgb(158, 56, 150), #ff6300);
   background-size: 180% 180%;
@@ -184,25 +180,15 @@ a {
 }
 
 @keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .banner h1 {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   font-size: 60px;
   font-weight: bold;
   color: #ffffff;
-  text-decoration: none;
   text-align: center;
   letter-spacing: -0.025em;
   transition: 0.3s;
@@ -210,4 +196,66 @@ a {
   justify-content: center;
   align-items: center;
   padding: 140px 0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .search-container {
+    max-width: 500px;
+  }
+
+  .nav-buttons2 {
+    gap: 20px;
+  }
+
+  .banner h1 {
+    font-size: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar,
+  .navbar2 {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+  }
+
+  .nav-buttons,
+  .nav-buttons2 {
+    justify-content: flex-start;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .search-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .banner h1 {
+    font-size: 36px;
+    padding: 100px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-input {
+    font-size: 14px;
+  }
+
+  .nav-button,
+  .nav-button2 {
+    font-size: 16px;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .banner h1 {
+    font-size: 28px;
+    padding: 80px 0;
+    text-align: center;
+  }
 }

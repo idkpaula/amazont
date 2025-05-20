@@ -171,3 +171,55 @@ html, body {
   font-size: 1rem;
   color: #f5deb3; /* Beige suave para la información adicional */
 }
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 600px) {
+  .product-container {
+    padding: 1rem;
+    max-width: 95%;
+  }
+  
+  .main-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .thumbnails {
+    gap: 8px;
+  }
+  
+  .thumbnails img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .product-container h1 {
+    font-size: 1.5rem;
+  }
+  
+  .product-container h2 {
+    font-size: 1.3rem;
+  }
+  
+  .product-container button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Indicador visual para miniatura activa */
+.thumbnails img.active {
+  outline: 3px solid #ff7b00;
+  transform: scale(1.15);
+}
+
+/* Cursor no permitido para botón deshabilitado */
+.product-container button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Mejora transición del botón */
+.product-container button::before {
+  transition: width 0.25s ease-in-out;
+}

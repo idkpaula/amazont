@@ -1,57 +1,103 @@
-/* Estilo del contenedor de la tarjeta de categoría */
-
-
-/* Estilo del contenedor de la tarjeta de categoría */
 .categoria-card {
     position: relative;
-      width: 300px;
-      height: 200px;
-      background: linear-gradient(180deg, rgb(151, 46, 125), #ff6300);
-      ;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
-
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(180deg, rgb(151, 46, 125), #ff6300);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
-/* Efecto al pasar el ratón sobre la tarjeta */
+/* Hover efecto */
 .categoria-card:hover {
-    transform:  scale(1.1);
     transform: rotate(-5deg) scale(1.1);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Imagen de la categoría */
+/* Imagen */
 .categoria-card img {
     width: 100%;
-    height: 150px; /* Ajuste de altura */
+    height: 150px;
     object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease;
 }
 
-/* Efecto de la imagen al pasar el ratón */
+/* Hover imagen */
 .categoria-card:hover img {
-    transform: scale(1.05); /* Hace que la imagen crezca ligeramente */
+    transform: scale(1.05);
 }
 
-/* Nombre de la categoría */
+/* Texto */
 .categoria-card p {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     font-size: 1.2rem;
     font-weight: bold;
     color: #ffffff;
     margin-top: 15px;
     transition: color 0.3s ease;
-    font-weight: bold;
 }
 
-/* Efecto al pasar el ratón sobre el nombre */
+/* Hover texto */
 .categoria-card:hover p {
-    color: black; /* Cambia el color del texto al pasar el ratón */
+    color: black;
 }
 
+/* RESPONSIVE */
 
+/* Tablet */
+@media (max-width: 768px) {
+    .categoria-card {
+        width: 250px;
+        height: 170px;
+    }
+
+    .categoria-card img {
+        height: 120px;
+    }
+
+    .categoria-card p {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .categoria-card {
+        width: 90vw; /* Ocupa casi todo el ancho de pantalla */
+        max-width: 300px;
+        height: auto; /* Ajusta la altura según contenido */
+        padding-bottom: 10px; /* Espacio para el texto */
+    }
+
+    .categoria-card img {
+        height: auto;
+        max-height: 150px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .categoria-card p {
+        font-size: 0.9rem;
+        margin-top: 8px;
+        color: white; /* Para mejor legibilidad en móvil */
+    }
+
+    /* Opcional: eliminar hover en móviles para evitar efectos incómodos */
+    .categoria-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .categoria-card:hover img {
+        transform: none;
+    }
+
+    .categoria-card:hover p {
+        color: white;
+    }
+}

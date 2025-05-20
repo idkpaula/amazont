@@ -1,4 +1,4 @@
-/* Estilo del contenedor del producto */
+/* Contenedor del producto */
 .producto-item {
   background-color: #fff;
   border-radius: 10px;
@@ -11,21 +11,21 @@
   overflow: hidden;
 }
 
-.producto-item:hover{
-transform: scale(1.1);
-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-background-color: #6d6d6d;
+.producto-item:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: #6d6d6d;
 }
 
-.producto-item:hover h3  {
+.producto-item:hover h3 {
   color: #fff;
 }
 
 /* Imagen del producto */
 .producto-item img {
   width: 100%;
-  height: 200px; /* Altura fija para la imagen */
-  object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+  height: 200px;
+  object-fit: cover;
   border-radius: 8px;
   margin-bottom: 15px;
   transition: transform 0.3s ease-in-out;
@@ -35,32 +35,27 @@ background-color: #6d6d6d;
 .producto-item h3 {
   font-size: 1.2rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    font-weight: bold;
   font-weight: bold;
   color: #000000;
   margin-bottom: 10px;
 }
 
-
 /* Descripción del producto */
 .producto-item .descripcion {
-  font-size: 1.2rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    font-weight: bold;
   font-size: 0.9rem;
-  color:#fc7a00;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-weight: bold;
+  color: #fc7a00;
   margin-bottom: 15px;
   line-height: 1.4;
 }
 
 /* Precio del producto */
 .producto-item .precio {
-  font-size: 1.2rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    font-weight: bold;
   font-size: 1.4rem;
-  color: #fc7a00;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   font-weight: bold;
+  color: #fc7a00;
 }
 
 /* Botón Añadir al carrito */
@@ -80,11 +75,48 @@ background-color: #6d6d6d;
 
 /* Efecto hover para el botón */
 .producto-item .carrito:hover {
-  background-color: #e56413; /* Un tono más oscuro para el hover */
+  background-color: #e56413;
   transform: scale(1.05);
 }
 
 .producto-item:hover .carrito {
   background-color: #fff;
   color: #fc7a00;
+}
+
+/* Tablets y pantallas medianas */
+@media (max-width: 900px) {
+  .producto-item {
+    width: 45%; /* Dos productos por fila aproximadamente */
+    margin: 1rem auto;
+  }
+}
+
+/* Móviles y pantallas pequeñas */
+@media (max-width: 600px) {
+  .producto-item {
+    width: 90%; /* Un producto por fila */
+    margin: 1rem auto;
+  }
+  
+  .producto-item img {
+    height: 180px; /* Ajusta un poco la altura */
+  }
+  
+  .producto-item h3 {
+    font-size: 1rem;
+  }
+  
+  .producto-item .descripcion {
+    font-size: 0.85rem;
+  }
+  
+  .producto-item .precio {
+    font-size: 1.2rem;
+  }
+  
+  .producto-item .carrito {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
 }

@@ -171,3 +171,101 @@ button:hover::before {
 .button--next:hover {
   background: rgba(255, 255, 255, 0.9);
 }
+
+/* Ajustes generales para móviles */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 28px;
+    margin-top: 60px;
+    margin-left: 20px;
+  }
+
+  .list-wrapper {
+    padding: 0 20px; /* Reduce padding lateral para pantallas pequeñas */
+  }
+
+  .list {
+    gap: 20px;
+    padding: 15px 0;
+  }
+
+  .card {
+    width: 200px;
+    height: 220px;
+    box-shadow: 0 0 0 3px #ffffff80;
+  }
+
+  .card__title {
+    font-size: 18px;
+  }
+
+  .card__description {
+    font-size: 15px;
+    padding-bottom: 20px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
+
+  /* Botones de navegación más pequeños y cerca del borde */
+  .button--previous,
+  .button--next {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+  
+  .button--previous {
+    left: 5px;
+  }
+  
+  .button--next {
+    right: 5px;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (móviles muy pequeños) */
+@media (max-width: 400px) {
+  h1 {
+    font-size: 24px;
+    margin-top: 40px;
+    margin-left: 15px;
+  }
+
+  .card {
+    width: 160px;
+    height: 180px;
+  }
+
+  .card__title {
+    font-size: 16px;
+  }
+
+  .card__description {
+    font-size: 13px;
+  }
+
+  button {
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 10px;
+  }
+
+  .button--previous,
+  .button--next {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .button--previous {
+    left: 3px;
+  }
+  
+  .button--next {
+    right: 3px;
+  }
+}

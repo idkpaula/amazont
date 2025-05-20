@@ -2,4 +2,13 @@ hr.rounded {
   border-top: 5px solid #3b3b3b;
   border-radius: 5px;
   width: 97%;
+  margin: 1rem auto;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 480px) {
+  hr.rounded {
+    width: 90%;
+    border-top-width: 3px; /* Más delgado en móviles */
+  }
 }

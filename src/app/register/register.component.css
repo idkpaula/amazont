@@ -157,3 +157,49 @@ select:focus {
   color: #ffffff;
   cursor: pointer;
 }
+
+/* Responsive para móviles y tablets */
+@media (max-width: 600px) {
+  .main-container {
+    padding: 1rem;
+    min-height: auto; /* Para evitar scroll extra */
+    align-items: flex-start; /* Para que no quede tan arriba */
+  }
+
+  .register-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+    border-radius: 10px;
+  }
+
+  .register-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  input,
+  select {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .checkbox-container label {
+    font-size: 0.9rem;
+  }
+
+  .register-container button {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .register-container a {
+    font-size: 0.85rem;
+  }
+}

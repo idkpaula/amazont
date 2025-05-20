@@ -10,7 +10,6 @@ h1 {
   font-size: 35px;
   font-weight: bold;
   color: #020000;
-  /* Azul similar al de la imagen */
   text-decoration: none;
   letter-spacing: -0.025em;
   transition: 0.3s;
@@ -20,23 +19,59 @@ h1 {
 
 .list {
   gap: 55px;
-  padding: 30px;
-  overflow-x: scroll;
+  padding: 30px 0 30px 105px;
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-left: 105px;
-
   display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-template-columns: repeat(4, 1fr);
-
+  grid-template-columns: repeat(4, 1fr);
+  scroll-padding-left: 105px;
 }
-.productos-container{
-    gap: 55px;
-      padding: 10px;
-      list-style: none;
-      scroll-snap-type: x mandatory;
-      padding-left: 105px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(3, 1fr);
+
+.productos-container {
+  gap: 55px;
+  padding: 10px 0 10px 105px;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  scroll-padding-left: 105px;
+}
+
+/* RESPONSIVE */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .list,
+  .productos-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding-left: 50px;
+    gap: 30px;
+  }
+  h1 {
+    font-size: 28px;
+    margin-left: 20px;
+  }
+  hr.rounded {
+    margin-left: 20px;
+    width: 95%;
+  }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+  .list,
+  .productos-container {
+    grid-template-columns: 1fr;
+    padding-left: 20px;
+    gap: 20px;
+  }
+  h1 {
+    font-size: 24px;
+    margin-left: 15px;
+  }
+  hr.rounded {
+    margin-left: 15px;
+    width: 90%;
+  }
 }
